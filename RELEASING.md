@@ -57,24 +57,23 @@ string literally.
 
 ## Submitting to the community list
 
-1. Fork [obsidianmd/obsidian-releases](https://github.com/obsidianmd/obsidian-releases)
-2. Append to `community-css-themes.json`:
+**This is not a pull request.** `obsidianmd/obsidian-releases` is now a mirror —
+pull requests and issues are both disabled on it, and `community-css-themes.json`
+only receives automated `chore: Mirror community plugins and themes` commits.
+Older guides describing a fork-and-PR flow are out of date.
 
-```json
-{
-  "name": "Diagrammo Slate",
-  "author": "Demian Neidetcher",
-  "repo": "demian0311/obsidian-slate",
-  "screenshot": "screenshot.png",
-  "modes": ["dark", "light"]
-}
-```
+Submit through the web portal instead:
 
-3. Open a PR. The checklist in the PR template asks you to confirm the release
-   exists and the screenshot renders.
+1. Go to [community.obsidian.md](https://community.obsidian.md) and sign in with
+   your Obsidian account
+2. Link your GitHub account, which verifies you own the repo
+3. **Themes** > **New theme** in the sidebar
+4. Enter `https://github.com/demian0311/obsidian-slate`
+5. Review the developer policies and confirm ongoing support
+6. **Submit**
 
-Review is done by a bot first, then a human. Expect a wait, and expect at
-least one round of comments.
+The directory reads `manifest.json` from your default branch's HEAD, so commit
+any version bump before submitting.
 
 ## Before submitting
 
