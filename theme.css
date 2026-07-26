@@ -464,12 +464,13 @@ s {
   text-decoration-color: rgba(var(--sl-red-rgb), 0.8);
 }
 
-/* Spectrum rule. */
-body:not(.slate-plain-rule) hr,
+/* Spectrum rule. Scoped to note content so plugin panes in the sidebar keep
+   their own hairlines. Deliberately faint — it marks a break, not a heading. */
+body:not(.slate-plain-rule) .markdown-rendered hr,
 body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr::before {
   border: none;
-  height: 2px;
-  border-radius: 2px;
+  height: 1px;
+  border-radius: 0;
   background: linear-gradient(
     90deg,
     var(--sl-red),
@@ -481,7 +482,7 @@ body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr::before {
     var(--sl-blue),
     var(--sl-purple)
   );
-  opacity: 0.75;
+  opacity: 0.3;
 }
 
 body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr {
