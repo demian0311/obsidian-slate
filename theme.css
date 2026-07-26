@@ -1,0 +1,1006 @@
+/* ============================================================================
+   Diagrammo Slate — an Obsidian theme
+   Port of the "Slate" palette from https://diagrammo.app/palette/
+
+   A cool-gray slate ground with a confident corporate blue, a muted teal
+   accent, and a nine-hue categorical spectrum tuned to a single perceived
+   weight. This theme spends that spectrum aggressively: headings, callouts,
+   tags, folders, syntax, tasks and graph nodes all carry hue.
+   ========================================================================= */
+
+/* @settings
+
+name: Diagrammo Slate
+id: diagrammo-slate
+settings:
+  -
+    id: slate-color-heading
+    title: Color
+    type: heading
+    level: 1
+    collapsed: false
+  -
+    id: slate-plain-headings
+    title: Plain headings
+    description: Turn off the H1–H6 spectrum ladder; headings use the body ink.
+    type: class-toggle
+    default: false
+  -
+    id: slate-plain-heading-bars
+    title: No heading rules
+    description: Remove the H1 underline and the H2 left bar.
+    type: class-toggle
+    default: false
+  -
+    id: slate-plain-folders
+    title: Plain folders
+    description: Turn off file-explorer folder tinting by nesting depth.
+    type: class-toggle
+    default: false
+  -
+    id: slate-plain-tags
+    title: Plain tags
+    description: Turn off per-tag hues; all tags use the teal accent.
+    type: class-toggle
+    default: false
+  -
+    id: slate-plain-rule
+    title: Plain horizontal rules
+    description: Render --- as a hairline instead of a spectrum gradient.
+    type: class-toggle
+    default: false
+  -
+    id: slate-plain-emphasis
+    title: Plain bold & italic
+    description: Turn off colored emphasis; bold and italic use the body ink.
+    type: class-toggle
+    default: false
+  -
+    id: slate-typography-heading
+    title: Typography
+    type: heading
+    level: 1
+    collapsed: false
+  -
+    id: slate-sans-body
+    title: Sans-serif body
+    description: Use the interface sans for note body text instead of the serif.
+    type: class-toggle
+    default: false
+  -
+    id: slate-line-width
+    title: Line width
+    description: Readable measure for note content.
+    type: variable-text
+    default: 42rem
+
+*/
+
+/* ---------------------------------------------------------------------------
+   1. Palette
+   ------------------------------------------------------------------------ */
+
+.theme-light {
+  /* ground */
+  --sl-bg-rgb: 255, 255, 255;
+  --sl-surface-rgb: 243, 245, 248;
+  --sl-overlay-rgb: 234, 238, 243;
+  --sl-border-rgb: 212, 218, 225;
+  --sl-text-rgb: 31, 41, 51;
+  --sl-muted-rgb: 91, 102, 114;
+
+  /* roles */
+  --sl-primary-rgb: 59, 110, 165;
+  --sl-accent-rgb: 58, 145, 136;
+
+  /* spectrum */
+  --sl-red-rgb: 192, 80, 77;
+  --sl-orange-rgb: 204, 122, 51;
+  --sl-yellow-rgb: 201, 162, 39;
+  --sl-green-rgb: 91, 147, 87;
+  --sl-blue-rgb: 59, 110, 165;
+  --sl-purple-rgb: 125, 91, 166;
+  --sl-teal-rgb: 58, 145, 136;
+  --sl-cyan-rgb: 79, 150, 196;
+  --sl-gray-rgb: 126, 138, 151;
+
+  /* text-safe yellow: the raw gold is too light to read on white */
+  --sl-yellow-text-rgb: 143, 116, 24;
+
+  /* fills and washes */
+  --sl-wash: 0.1;
+  --sl-wash-strong: 0.18;
+  --sl-shadow-color: 31, 41, 51;
+  --sl-shadow-strength: 0.09;
+  color-scheme: light;
+}
+
+.theme-dark {
+  /* ground */
+  --sl-bg-rgb: 22, 27, 34;
+  --sl-surface-rgb: 32, 40, 51;
+  --sl-overlay-rgb: 41, 50, 62;
+  --sl-border-rgb: 56, 66, 79;
+  --sl-text-rgb: 230, 234, 239;
+  --sl-muted-rgb: 154, 165, 177;
+
+  /* roles */
+  --sl-primary-rgb: 91, 155, 213;
+  --sl-accent-rgb: 69, 179, 163;
+
+  /* spectrum */
+  --sl-red-rgb: 224, 123, 110;
+  --sl-orange-rgb: 224, 151, 90;
+  --sl-yellow-rgb: 217, 189, 90;
+  --sl-green-rgb: 116, 181, 110;
+  --sl-blue-rgb: 91, 155, 213;
+  --sl-purple-rgb: 165, 133, 201;
+  --sl-teal-rgb: 69, 179, 163;
+  --sl-cyan-rgb: 98, 176, 217;
+  --sl-gray-rgb: 149, 161, 174;
+
+  --sl-yellow-text-rgb: 217, 189, 90;
+
+  --sl-wash: 0.14;
+  --sl-wash-strong: 0.24;
+  --sl-shadow-color: 0, 0, 0;
+  --sl-shadow-strength: 0.4;
+  color-scheme: dark;
+}
+
+body {
+  --sl-bg: rgb(var(--sl-bg-rgb));
+  --sl-surface: rgb(var(--sl-surface-rgb));
+  --sl-overlay: rgb(var(--sl-overlay-rgb));
+  --sl-border: rgb(var(--sl-border-rgb));
+  --sl-text: rgb(var(--sl-text-rgb));
+  --sl-muted: rgb(var(--sl-muted-rgb));
+  --sl-primary: rgb(var(--sl-primary-rgb));
+  --sl-accent: rgb(var(--sl-accent-rgb));
+
+  --sl-red: rgb(var(--sl-red-rgb));
+  --sl-orange: rgb(var(--sl-orange-rgb));
+  --sl-yellow: rgb(var(--sl-yellow-rgb));
+  --sl-yellow-text: rgb(var(--sl-yellow-text-rgb));
+  --sl-green: rgb(var(--sl-green-rgb));
+  --sl-blue: rgb(var(--sl-blue-rgb));
+  --sl-purple: rgb(var(--sl-purple-rgb));
+  --sl-teal: rgb(var(--sl-teal-rgb));
+  --sl-cyan: rgb(var(--sl-cyan-rgb));
+  --sl-gray: rgb(var(--sl-gray-rgb));
+}
+
+/* ---------------------------------------------------------------------------
+   2. Typography
+   ------------------------------------------------------------------------ */
+
+body {
+  --font-interface-theme: "Inter", "Inter Variable", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-text-theme: "Iowan Old Style", "Charter", "Palatino", "Source Serif Pro",
+    Georgia, serif;
+  --font-monospace-theme: "JetBrains Mono", "SF Mono", "Berkeley Mono",
+    "IBM Plex Mono", ui-monospace, Menlo, monospace;
+
+  --file-line-width: var(--slate-line-width, 42rem);
+  --line-height-normal: 1.7;
+  --line-height-tight: 1.35;
+  --p-spacing: 1.1rem;
+
+  --font-weight: 400;
+  --bold-weight: 650;
+
+  --h1-size: 2rem;
+  --h2-size: 1.55rem;
+  --h3-size: 1.28rem;
+  --h4-size: 1.1rem;
+  --h5-size: 1rem;
+  --h6-size: 0.9rem;
+
+  --h1-weight: 700;
+  --h2-weight: 650;
+  --h3-weight: 650;
+  --h4-weight: 650;
+  --h5-weight: 650;
+  --h6-weight: 700;
+
+  --h1-line-height: 1.2;
+  --h2-line-height: 1.25;
+  --h3-line-height: 1.3;
+  --h4-line-height: 1.35;
+  --h5-line-height: 1.4;
+  --h6-line-height: 1.4;
+
+  --h1-variant: normal;
+  --h6-variant: small-caps;
+
+  --code-size: 0.875em;
+  --font-adaptive-normal: 16px;
+
+  --radius-s: 4px;
+  --radius-m: 7px;
+  --radius-l: 11px;
+  --radius-xl: 16px;
+
+  --input-shadow: none;
+  --shadow-s: 0 1px 2px rgba(var(--sl-shadow-color), var(--sl-shadow-strength));
+  --shadow-l: 0 8px 28px rgba(var(--sl-shadow-color), var(--sl-shadow-strength));
+}
+
+/* Opt-out: sans everywhere. */
+body.slate-sans-body {
+  --font-text-theme: var(--font-interface-theme);
+}
+
+.markdown-preview-view,
+.markdown-source-view.mod-cm6 .cm-content {
+  letter-spacing: 0.002em;
+}
+
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.HyperMD-header {
+  letter-spacing: -0.018em;
+  font-family: var(--font-interface-theme);
+}
+
+.markdown-rendered h6,
+.HyperMD-header-6 {
+  letter-spacing: 0.06em;
+}
+
+/* ---------------------------------------------------------------------------
+   3. Core surfaces
+   ------------------------------------------------------------------------ */
+
+body {
+  --background-primary: var(--sl-bg);
+  --background-primary-alt: var(--sl-surface);
+  --background-secondary: var(--sl-surface);
+  --background-secondary-alt: var(--sl-overlay);
+
+  --background-modifier-hover: rgba(var(--sl-primary-rgb), 0.09);
+  --background-modifier-active-hover: rgba(var(--sl-primary-rgb), 0.16);
+  --background-modifier-border: var(--sl-border);
+  --background-modifier-border-hover: rgba(var(--sl-primary-rgb), 0.45);
+  --background-modifier-border-focus: var(--sl-primary);
+  --background-modifier-form-field: rgba(var(--sl-overlay-rgb), 0.7);
+  --background-modifier-error: rgba(var(--sl-red-rgb), 0.22);
+  --background-modifier-error-hover: rgba(var(--sl-red-rgb), 0.34);
+  --background-modifier-error-rgb: var(--sl-red-rgb);
+  --background-modifier-success: rgba(var(--sl-green-rgb), 0.24);
+  --background-modifier-success-rgb: var(--sl-green-rgb);
+  --background-modifier-message: rgba(var(--sl-text-rgb), 0.85);
+
+  --divider-color: var(--sl-border);
+  --divider-color-hover: var(--sl-primary);
+  --hr-color: var(--sl-border);
+
+  --modal-background: var(--sl-bg);
+  --modal-border-color: var(--sl-border);
+  --prompt-border-color: var(--sl-border);
+
+  --titlebar-background: var(--sl-surface);
+  --titlebar-background-focused: var(--sl-surface);
+  --titlebar-border-color: var(--sl-border);
+  --ribbon-background: var(--sl-surface);
+  --ribbon-background-collapsed: var(--sl-surface);
+  --status-bar-background: var(--sl-surface);
+  --status-bar-border-color: var(--sl-border);
+
+  --tab-outline-color: var(--sl-border);
+  --tab-container-background: var(--sl-surface);
+  --tab-text-color-focused-active: var(--sl-primary);
+  --tab-text-color-focused-active-current: var(--sl-primary);
+
+  --scrollbar-bg: transparent;
+  --scrollbar-thumb-bg: rgba(var(--sl-gray-rgb), 0.35);
+  --scrollbar-active-thumb-bg: rgba(var(--sl-primary-rgb), 0.6);
+
+  --indentation-guide-color: rgba(var(--sl-gray-rgb), 0.25);
+  --indentation-guide-color-active: rgba(var(--sl-primary-rgb), 0.6);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Text, links and interactive
+   ------------------------------------------------------------------------ */
+
+body {
+  --text-normal: var(--sl-text);
+  --text-muted: var(--sl-muted);
+  --text-faint: rgba(var(--sl-muted-rgb), 0.62);
+  --text-on-accent: #ffffff;
+  --text-on-accent-inverted: rgb(var(--sl-bg-rgb));
+
+  --text-accent: var(--sl-primary);
+  --text-accent-hover: var(--sl-cyan);
+  --text-error: var(--sl-red);
+  --text-warning: var(--sl-yellow-text);
+  --text-success: var(--sl-green);
+
+  --text-selection: rgba(var(--sl-primary-rgb), 0.22);
+  --text-highlight-bg: rgba(var(--sl-yellow-rgb), 0.38);
+  --text-highlight-bg-active: rgba(var(--sl-orange-rgb), 0.5);
+
+  --interactive-normal: var(--sl-surface);
+  --interactive-hover: var(--sl-overlay);
+  --interactive-accent: var(--sl-primary);
+  --interactive-accent-hover: rgba(var(--sl-primary-rgb), 0.86);
+
+  --color-accent: var(--sl-primary);
+  --color-accent-1: var(--sl-cyan);
+  --color-accent-2: var(--sl-accent);
+
+  --icon-color: var(--sl-muted);
+  --icon-color-hover: var(--sl-primary);
+  --icon-color-active: var(--sl-primary);
+  --icon-color-focused: var(--sl-text);
+
+  --link-color: var(--sl-primary);
+  --link-color-hover: var(--sl-cyan);
+  --link-decoration: none;
+  --link-decoration-hover: underline;
+  --link-external-color: var(--sl-purple);
+  --link-external-color-hover: rgba(var(--sl-purple-rgb), 0.8);
+  --link-unresolved-color: var(--sl-red);
+  --link-unresolved-opacity: 0.75;
+  --link-unresolved-decoration-style: dotted;
+  --link-unresolved-decoration-color: rgba(var(--sl-red-rgb), 0.6);
+}
+
+/* Obsidian's named color slots — used by plugins, canvas and the picker. */
+body {
+  --color-red-rgb: var(--sl-red-rgb);
+  --color-red: var(--sl-red);
+  --color-orange-rgb: var(--sl-orange-rgb);
+  --color-orange: var(--sl-orange);
+  --color-yellow-rgb: var(--sl-yellow-rgb);
+  --color-yellow: var(--sl-yellow);
+  --color-green-rgb: var(--sl-green-rgb);
+  --color-green: var(--sl-green);
+  --color-cyan-rgb: var(--sl-cyan-rgb);
+  --color-cyan: var(--sl-cyan);
+  --color-blue-rgb: var(--sl-blue-rgb);
+  --color-blue: var(--sl-blue);
+  --color-purple-rgb: var(--sl-purple-rgb);
+  --color-purple: var(--sl-purple);
+  --color-pink-rgb: var(--sl-red-rgb);
+  --color-pink: var(--sl-red);
+}
+
+/* ---------------------------------------------------------------------------
+   5. Headings — the loudest part of the theme
+   ------------------------------------------------------------------------ */
+
+body {
+  --h1-color: var(--sl-red);
+  --h2-color: var(--sl-orange);
+  --h3-color: var(--sl-yellow-text);
+  --h4-color: var(--sl-green);
+  --h5-color: var(--sl-blue);
+  --h6-color: var(--sl-purple);
+}
+
+body.slate-plain-headings {
+  --h1-color: var(--sl-text);
+  --h2-color: var(--sl-text);
+  --h3-color: var(--sl-text);
+  --h4-color: var(--sl-text);
+  --h5-color: var(--sl-text);
+  --h6-color: var(--sl-muted);
+}
+
+/* Heading rules. Live preview headings are .HyperMD-header-N lines, so both
+   the rendered and the source view need the treatment to stay in sync. */
+body:not(.slate-plain-heading-bars) .markdown-rendered h1,
+body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  border-bottom: 2px solid rgba(var(--sl-red-rgb), 0.45);
+  padding-bottom: 0.2em;
+}
+
+body:not(.slate-plain-heading-bars) .markdown-rendered h2,
+body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  border-left: 3px solid rgba(var(--sl-orange-rgb), 0.7);
+  padding-left: 0.5em;
+  margin-left: -0.5em;
+}
+
+/* Fold arrows and the collapse indicator pick up the heading hue. */
+.markdown-rendered h1 .collapse-indicator svg { color: var(--h1-color); }
+.markdown-rendered h2 .collapse-indicator svg { color: var(--h2-color); }
+.markdown-rendered h3 .collapse-indicator svg { color: var(--h3-color); }
+.markdown-rendered h4 .collapse-indicator svg { color: var(--h4-color); }
+.markdown-rendered h5 .collapse-indicator svg { color: var(--h5-color); }
+.markdown-rendered h6 .collapse-indicator svg { color: var(--h6-color); }
+
+/* Heading markup (#, ##) in live preview stays quiet but keeps the hue. */
+.markdown-source-view.mod-cm6 .cm-header .cm-formatting-header {
+  opacity: 0.4;
+}
+
+/* Outline pane echoes the same ladder. */
+.outline-view .tree-item-self[data-heading-level="1"] .tree-item-inner { color: var(--h1-color); }
+.outline-view .tree-item-self[data-heading-level="2"] .tree-item-inner { color: var(--h2-color); }
+.outline-view .tree-item-self[data-heading-level="3"] .tree-item-inner { color: var(--h3-color); }
+.outline-view .tree-item-self[data-heading-level="4"] .tree-item-inner { color: var(--h4-color); }
+.outline-view .tree-item-self[data-heading-level="5"] .tree-item-inner { color: var(--h5-color); }
+.outline-view .tree-item-self[data-heading-level="6"] .tree-item-inner { color: var(--h6-color); }
+
+/* ---------------------------------------------------------------------------
+   6. Inline markup
+   ------------------------------------------------------------------------ */
+
+body {
+  --bold-color: var(--sl-primary);
+  --italic-color: var(--sl-accent);
+  --blockquote-border-color: var(--sl-accent);
+  --blockquote-background-color: rgba(var(--sl-accent-rgb), 0.06);
+  --embed-border-left: 2px solid rgba(var(--sl-purple-rgb), 0.5);
+  --embed-background: rgba(var(--sl-purple-rgb), 0.04);
+}
+
+body.slate-plain-emphasis {
+  --bold-color: var(--sl-text);
+  --italic-color: var(--sl-text);
+}
+
+.markdown-rendered blockquote,
+.markdown-source-view.mod-cm6 .cm-blockquote {
+  background: var(--blockquote-background-color);
+  border-radius: 0 var(--radius-s) var(--radius-s) 0;
+  padding: 0.15em 0.9em;
+}
+
+mark,
+.cm-highlight {
+  border-radius: 3px;
+  padding: 0.05em 0.15em;
+}
+
+del,
+s {
+  color: var(--text-faint);
+  text-decoration-color: rgba(var(--sl-red-rgb), 0.8);
+}
+
+/* Spectrum rule. */
+body:not(.slate-plain-rule) hr,
+body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr::before {
+  border: none;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--sl-red),
+    var(--sl-orange),
+    var(--sl-yellow),
+    var(--sl-green),
+    var(--sl-teal),
+    var(--sl-cyan),
+    var(--sl-blue),
+    var(--sl-purple)
+  );
+  opacity: 0.75;
+}
+
+body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr {
+  background: none;
+}
+
+body:not(.slate-plain-rule) .markdown-source-view.mod-cm6 .cm-hr::before {
+  content: "";
+  display: block;
+}
+
+/* ---------------------------------------------------------------------------
+   7. Code
+   ------------------------------------------------------------------------ */
+
+body {
+  --code-background: rgba(var(--sl-purple-rgb), 0.1);
+  --code-normal: var(--sl-text);
+  --code-white: var(--sl-text);
+  --code-comment: rgba(var(--sl-gray-rgb), 0.95);
+  --code-function: var(--sl-purple);
+  --code-important: var(--sl-red);
+  --code-keyword: var(--sl-red);
+  --code-operator: var(--sl-orange);
+  --code-property: var(--sl-cyan);
+  --code-punctuation: var(--sl-muted);
+  --code-string: var(--sl-green);
+  --code-tag: var(--sl-blue);
+  --code-value: var(--sl-teal);
+
+  --pre-code-background: var(--sl-surface);
+  --code-radius: var(--radius-s);
+}
+
+/* Inline code: purple ink on a purple wash, per the palette's code role. */
+.markdown-rendered code,
+.markdown-source-view.mod-cm6 .cm-inline-code {
+  color: var(--sl-purple);
+  background: var(--code-background);
+  border-radius: var(--radius-s);
+  padding: 0.12em 0.35em;
+  font-size: var(--code-size);
+}
+
+/* Fenced blocks sit on the neutral panel, not the purple wash. */
+.markdown-rendered pre,
+.markdown-rendered pre code,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+  background: var(--pre-code-background);
+  color: var(--code-normal);
+}
+
+.markdown-rendered pre {
+  border: 1px solid var(--sl-border);
+  border-left: 3px solid rgba(var(--sl-purple-rgb), 0.7);
+  border-radius: var(--radius-m);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-begin {
+  border-top: 1px solid var(--sl-border);
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock-end {
+  border-bottom: 1px solid var(--sl-border);
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+  border-left: 3px solid rgba(var(--sl-purple-rgb), 0.7);
+}
+
+.markdown-rendered .code-block-flair,
+.markdown-source-view .code-block-flair {
+  color: var(--sl-purple);
+  opacity: 0.85;
+}
+
+/* ---------------------------------------------------------------------------
+   8. Callouts — every default type gets a distinct hue
+   ------------------------------------------------------------------------ */
+
+body {
+  --callout-border-width: 0px;
+  --callout-border-opacity: 0.28;
+  --callout-padding: 0.85em 1em;
+  --callout-radius: var(--radius-m);
+  --callout-title-size: 1em;
+
+  --callout-note: var(--sl-blue-rgb);
+  --callout-abstract: var(--sl-cyan-rgb);
+  --callout-summary: var(--sl-cyan-rgb);
+  --callout-tldr: var(--sl-cyan-rgb);
+  --callout-info: var(--sl-blue-rgb);
+  --callout-todo: var(--sl-teal-rgb);
+  --callout-tip: var(--sl-teal-rgb);
+  --callout-hint: var(--sl-teal-rgb);
+  --callout-important: var(--sl-teal-rgb);
+  --callout-success: var(--sl-green-rgb);
+  --callout-check: var(--sl-green-rgb);
+  --callout-done: var(--sl-green-rgb);
+  --callout-question: var(--sl-yellow-rgb);
+  --callout-help: var(--sl-yellow-rgb);
+  --callout-faq: var(--sl-yellow-rgb);
+  --callout-warning: var(--sl-orange-rgb);
+  --callout-caution: var(--sl-orange-rgb);
+  --callout-attention: var(--sl-orange-rgb);
+  --callout-failure: var(--sl-red-rgb);
+  --callout-fail: var(--sl-red-rgb);
+  --callout-missing: var(--sl-red-rgb);
+  --callout-danger: var(--sl-red-rgb);
+  --callout-error: var(--sl-red-rgb);
+  --callout-bug: var(--sl-red-rgb);
+  --callout-example: var(--sl-purple-rgb);
+  --callout-quote: var(--sl-gray-rgb);
+  --callout-cite: var(--sl-gray-rgb);
+}
+
+.callout {
+  background: rgba(var(--callout-color), var(--sl-wash));
+  border-left: 3px solid rgba(var(--callout-color), 0.85);
+  mix-blend-mode: var(--highlight-mix-blend-mode, normal);
+}
+
+.callout-title {
+  color: rgb(var(--callout-color));
+  font-weight: var(--bold-weight);
+  letter-spacing: -0.01em;
+}
+
+.callout-icon .svg-icon {
+  color: rgb(var(--callout-color));
+}
+
+/* Foldable callouts get a matching chevron. */
+.callout.is-collapsible .callout-fold svg {
+  color: rgb(var(--callout-color));
+}
+
+/* ---------------------------------------------------------------------------
+   9. Lists, tasks and checkboxes
+   ------------------------------------------------------------------------ */
+
+body {
+  --checkbox-color: var(--sl-accent);
+  --checkbox-color-hover: var(--sl-teal);
+  --checkbox-border-color: rgba(var(--sl-gray-rgb), 0.7);
+  --checkbox-border-color-hover: var(--sl-primary);
+  --checkbox-marker-color: var(--sl-bg);
+  --checklist-done-color: var(--text-faint);
+  --checklist-done-decoration: line-through;
+  --list-marker-color: var(--sl-primary);
+  --list-marker-color-hover: var(--sl-cyan);
+  --list-marker-color-collapsed: var(--sl-orange);
+  --list-indent: 1.6em;
+}
+
+/* Extended task states. Each glyph carries its own hue so a task board of
+   mixed states reads at a glance. */
+input[data-task=">"]:checked,
+li[data-task=">"] > input:checked,
+li[data-task=">"] > p > input:checked {
+  --checkbox-color: var(--sl-cyan);
+  --checkbox-color-hover: var(--sl-cyan);
+}
+
+input[data-task="!"]:checked,
+li[data-task="!"] > input:checked,
+li[data-task="!"] > p > input:checked {
+  --checkbox-color: var(--sl-orange);
+  --checkbox-color-hover: var(--sl-orange);
+}
+
+input[data-task="?"]:checked,
+li[data-task="?"] > input:checked,
+li[data-task="?"] > p > input:checked {
+  --checkbox-color: var(--sl-yellow);
+  --checkbox-color-hover: var(--sl-yellow);
+}
+
+input[data-task="*"]:checked,
+li[data-task="*"] > input:checked,
+li[data-task="*"] > p > input:checked {
+  --checkbox-color: var(--sl-purple);
+  --checkbox-color-hover: var(--sl-purple);
+}
+
+input[data-task="-"]:checked,
+li[data-task="-"] > input:checked,
+li[data-task="-"] > p > input:checked {
+  --checkbox-color: var(--sl-red);
+  --checkbox-color-hover: var(--sl-red);
+}
+
+li[data-task="-"].task-list-item.is-checked {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+/* Only a genuine [x] is dimmed; the extended states stay readable. */
+.task-list-item.is-checked:not([data-task="x"]):not([data-task="X"]) {
+  color: var(--text-normal);
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------
+   10. Tags — hued by first character (reading view + tag pane)
+   ------------------------------------------------------------------------ */
+
+body {
+  --tag-color: var(--sl-accent);
+  --tag-background: rgba(var(--sl-accent-rgb), var(--sl-wash));
+  --tag-background-hover: rgba(var(--sl-accent-rgb), var(--sl-wash-strong));
+  --tag-border-width: 1px;
+  --tag-border-color: rgba(var(--sl-accent-rgb), 0.3);
+  --tag-border-color-hover: rgba(var(--sl-accent-rgb), 0.6);
+  --tag-radius: 1em;
+  --tag-padding-x: 0.65em;
+  --tag-padding-y: 0.18em;
+  --tag-weight: 500;
+  --tag-decoration: none;
+}
+
+/* CSS cannot hash a string, so the tag's first character selects the bucket.
+   Nine buckets across the spectrum, letters rotating a-i / j-r / s-z. */
+body:not(.slate-plain-tags) {
+  --slate-tag-1: var(--sl-red-rgb);
+  --slate-tag-2: var(--sl-orange-rgb);
+  --slate-tag-3: var(--sl-yellow-rgb);
+  --slate-tag-4: var(--sl-green-rgb);
+  --slate-tag-5: var(--sl-teal-rgb);
+  --slate-tag-6: var(--sl-cyan-rgb);
+  --slate-tag-7: var(--sl-blue-rgb);
+  --slate-tag-8: var(--sl-purple-rgb);
+  --slate-tag-9: var(--sl-gray-rgb);
+}
+
+body:not(.slate-plain-tags) a.tag[href^="#a" i],
+body:not(.slate-plain-tags) a.tag[href^="#j" i],
+body:not(.slate-plain-tags) a.tag[href^="#s" i] { --slate-tag: var(--slate-tag-1); }
+body:not(.slate-plain-tags) a.tag[href^="#b" i],
+body:not(.slate-plain-tags) a.tag[href^="#k" i],
+body:not(.slate-plain-tags) a.tag[href^="#t" i] { --slate-tag: var(--slate-tag-2); }
+body:not(.slate-plain-tags) a.tag[href^="#c" i],
+body:not(.slate-plain-tags) a.tag[href^="#l" i],
+body:not(.slate-plain-tags) a.tag[href^="#u" i] { --slate-tag: var(--slate-tag-3); }
+body:not(.slate-plain-tags) a.tag[href^="#d" i],
+body:not(.slate-plain-tags) a.tag[href^="#m" i],
+body:not(.slate-plain-tags) a.tag[href^="#v" i] { --slate-tag: var(--slate-tag-4); }
+body:not(.slate-plain-tags) a.tag[href^="#e" i],
+body:not(.slate-plain-tags) a.tag[href^="#n" i],
+body:not(.slate-plain-tags) a.tag[href^="#w" i] { --slate-tag: var(--slate-tag-5); }
+body:not(.slate-plain-tags) a.tag[href^="#f" i],
+body:not(.slate-plain-tags) a.tag[href^="#o" i],
+body:not(.slate-plain-tags) a.tag[href^="#x" i] { --slate-tag: var(--slate-tag-6); }
+body:not(.slate-plain-tags) a.tag[href^="#g" i],
+body:not(.slate-plain-tags) a.tag[href^="#p" i],
+body:not(.slate-plain-tags) a.tag[href^="#y" i] { --slate-tag: var(--slate-tag-7); }
+body:not(.slate-plain-tags) a.tag[href^="#h" i],
+body:not(.slate-plain-tags) a.tag[href^="#q" i],
+body:not(.slate-plain-tags) a.tag[href^="#z" i] { --slate-tag: var(--slate-tag-8); }
+body:not(.slate-plain-tags) a.tag[href^="#i" i],
+body:not(.slate-plain-tags) a.tag[href^="#r" i],
+body:not(.slate-plain-tags) a.tag[href^="#0"],
+body:not(.slate-plain-tags) a.tag[href^="#1"],
+body:not(.slate-plain-tags) a.tag[href^="#2"],
+body:not(.slate-plain-tags) a.tag[href^="#3"],
+body:not(.slate-plain-tags) a.tag[href^="#4"],
+body:not(.slate-plain-tags) a.tag[href^="#5"],
+body:not(.slate-plain-tags) a.tag[href^="#6"],
+body:not(.slate-plain-tags) a.tag[href^="#7"],
+body:not(.slate-plain-tags) a.tag[href^="#8"],
+body:not(.slate-plain-tags) a.tag[href^="#9"] { --slate-tag: var(--slate-tag-9); }
+
+body:not(.slate-plain-tags) a.tag[style],
+body:not(.slate-plain-tags) a.tag {
+  --tag-color: rgb(var(--slate-tag, var(--sl-accent-rgb)));
+  --tag-background: rgba(var(--slate-tag, var(--sl-accent-rgb)), var(--sl-wash));
+  --tag-background-hover: rgba(var(--slate-tag, var(--sl-accent-rgb)), var(--sl-wash-strong));
+  --tag-border-color: rgba(var(--slate-tag, var(--sl-accent-rgb)), 0.35);
+  --tag-border-color-hover: rgba(var(--slate-tag, var(--sl-accent-rgb)), 0.65);
+}
+
+/* Live preview has no tag name in the DOM, so it takes the accent pill. */
+.markdown-source-view.mod-cm6 .cm-hashtag {
+  background: var(--tag-background);
+  color: var(--tag-color);
+  border: 1px solid rgba(var(--sl-accent-rgb), 0.3);
+  border-left-width: 0;
+  border-right-width: 0;
+  padding: var(--tag-padding-y) 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-hashtag-begin {
+  border-left-width: 1px;
+  border-radius: var(--tag-radius) 0 0 var(--tag-radius);
+  padding-left: var(--tag-padding-x);
+}
+
+.markdown-source-view.mod-cm6 .cm-hashtag-end {
+  border-right-width: 1px;
+  border-radius: 0 var(--tag-radius) var(--tag-radius) 0;
+  padding-right: var(--tag-padding-x);
+}
+
+/* ---------------------------------------------------------------------------
+   11. File explorer — folders tinted by nesting depth
+   ------------------------------------------------------------------------ */
+
+body {
+  --nav-item-color: var(--sl-muted);
+  --nav-item-color-hover: var(--sl-text);
+  --nav-item-color-active: var(--sl-text);
+  --nav-item-color-selected: var(--sl-text);
+  --nav-item-background-hover: rgba(var(--sl-primary-rgb), 0.09);
+  --nav-item-background-active: rgba(var(--sl-primary-rgb), 0.14);
+  --nav-item-background-selected: rgba(var(--sl-primary-rgb), 0.14);
+  --nav-item-weight-active: 600;
+  --nav-indentation-guide-color: rgba(var(--sl-gray-rgb), 0.22);
+  --nav-file-tag: var(--sl-purple);
+  --nav-collapse-icon-color: var(--sl-muted);
+  --nav-collapse-icon-color-collapsed: var(--sl-orange);
+}
+
+/* Depth 1 through 6, one hue per level. The colored left rule on the children
+   container makes the nesting readable without relying on indent alone. */
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-red-rgb);
+}
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-orange-rgb);
+}
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-yellow-rgb);
+}
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-green-rgb);
+}
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-cyan-rgb);
+}
+body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
+  --slate-depth: var(--sl-purple-rgb);
+}
+
+body:not(.slate-plain-folders) .nav-folder-title {
+  color: rgb(var(--slate-depth, var(--sl-muted-rgb)));
+  font-weight: 550;
+}
+
+body:not(.slate-plain-folders) .nav-folder-title .collapse-icon svg {
+  color: rgb(var(--slate-depth, var(--sl-muted-rgb)));
+  opacity: 0.8;
+}
+
+body:not(.slate-plain-folders) .nav-folder-title:hover {
+  background: rgba(var(--slate-depth, var(--sl-primary-rgb)), 0.12);
+}
+
+body:not(.slate-plain-folders) .nav-folder:not(.mod-root) > .nav-folder-children {
+  border-left: 1px solid rgba(var(--slate-depth, var(--sl-gray-rgb)), 0.3);
+}
+
+/* Files stay neutral so the folder hues do the structural work. */
+.nav-file-title {
+  color: var(--nav-item-color);
+}
+
+.nav-file-title.is-active .nav-file-title-content {
+  color: var(--sl-primary);
+}
+
+.workspace-leaf-content[data-type="search"] .search-result-file-title {
+  color: var(--sl-primary);
+}
+
+/* ---------------------------------------------------------------------------
+   12. Tables, properties and embeds
+   ------------------------------------------------------------------------ */
+
+body {
+  --table-header-background: rgba(var(--sl-primary-rgb), 0.12);
+  --table-header-background-hover: rgba(var(--sl-primary-rgb), 0.18);
+  --table-header-color: var(--sl-primary);
+  --table-header-weight: 650;
+  --table-row-background-hover: rgba(var(--sl-primary-rgb), 0.06);
+  --table-row-alt-background: rgba(var(--sl-surface-rgb), 0.55);
+  --table-border-color: var(--sl-border);
+  --table-border-width: 1px;
+  --table-column-alt-background: transparent;
+  --table-selection: rgba(var(--sl-primary-rgb), 0.18);
+
+  --metadata-background: rgba(var(--sl-surface-rgb), 0.6);
+  --metadata-divider-color: var(--sl-border);
+  --metadata-label-text-color: var(--sl-muted);
+  --metadata-input-text-color: var(--sl-text);
+  --metadata-sidebar-label-text-color: var(--sl-muted);
+  --metadata-property-radius: var(--radius-s);
+}
+
+.markdown-rendered table {
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.metadata-property-key-input {
+  font-weight: 550;
+}
+
+/* Property values that are internal links or tags keep their hue. */
+.metadata-property[data-property-key] .multi-select-pill {
+  background: rgba(var(--sl-accent-rgb), var(--sl-wash));
+  color: var(--sl-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   13. Graph view
+   ------------------------------------------------------------------------ */
+
+body {
+  --graph-line: rgba(var(--sl-gray-rgb), 0.35);
+  --graph-node: var(--sl-primary);
+  --graph-node-focused: var(--sl-orange);
+  --graph-node-tag: var(--sl-teal);
+  --graph-node-attachment: var(--sl-purple);
+  --graph-node-unresolved: var(--sl-red);
+  --graph-text: var(--sl-text);
+}
+
+/* ---------------------------------------------------------------------------
+   14. Canvas
+   ------------------------------------------------------------------------ */
+
+body {
+  --canvas-background: var(--sl-bg);
+  --canvas-card-label-color: var(--sl-muted);
+  --canvas-dot-pattern: rgba(var(--sl-gray-rgb), 0.28);
+  --canvas-color-1: var(--sl-red-rgb);
+  --canvas-color-2: var(--sl-orange-rgb);
+  --canvas-color-3: var(--sl-yellow-rgb);
+  --canvas-color-4: var(--sl-green-rgb);
+  --canvas-color-5: var(--sl-cyan-rgb);
+  --canvas-color-6: var(--sl-purple-rgb);
+}
+
+/* ---------------------------------------------------------------------------
+   15. Chrome details
+   ------------------------------------------------------------------------ */
+
+/* Active tab flags itself with a primary top rule. */
+.workspace-tab-header.is-active {
+  box-shadow: inset 0 2px 0 0 var(--sl-primary);
+}
+
+/* Sidebar section headers. */
+.workspace-leaf-content .nav-header,
+.workspace-leaf-content .view-header-title {
+  color: var(--sl-text);
+}
+
+.view-header-title-parent .view-header-breadcrumb {
+  color: var(--sl-muted);
+}
+
+/* Status bar reads as ancillary, not primary UI. */
+.status-bar-item {
+  color: var(--sl-muted);
+}
+
+/* Search hits and command palette matches use the accent, not the highlight. */
+.suggestion-highlight,
+.search-result-file-matched-text {
+  color: var(--sl-orange);
+  background: rgba(var(--sl-orange-rgb), var(--sl-wash));
+}
+
+.suggestion-item.is-selected {
+  background: rgba(var(--sl-primary-rgb), 0.16);
+}
+
+/* Buttons. */
+button.mod-cta,
+.mod-cta {
+  color: var(--text-on-accent);
+}
+
+button.mod-warning {
+  background: var(--sl-red);
+  color: #ffffff;
+}
+
+/* Sliders, toggles. */
+.checkbox-container.is-enabled {
+  background: var(--sl-accent);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background: var(--sl-primary);
+}
+
+/* Vim mode cursor, if enabled, uses the accent for visibility. */
+.cm-vim-cursor-layer .cm-cursor {
+  background: rgba(var(--sl-accent-rgb), 0.55);
+}
+
+/* Active line and selection in the editor. */
+.markdown-source-view.mod-cm6 .cm-active-line {
+  background: rgba(var(--sl-primary-rgb), 0.05);
+}
+
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6 .cm-line::selection {
+  background: var(--text-selection);
+}
+
+/* Print / export stays on the light ground regardless of app theme. */
+@media print {
+  body {
+    --background-primary: #ffffff;
+    --text-normal: #1f2933;
+  }
+}
