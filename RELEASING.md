@@ -76,14 +76,14 @@ least one round of comments.
 ## Before submitting
 
 - [x] `screenshot.png` at repo root
-- [ ] Release tag matches `manifest.json` version exactly
-- [ ] `theme.css` and `manifest.json` attached to the release
+- [x] Release tag matches `manifest.json` version exactly (1.0.0)
+- [x] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
       note — nested folders, long note lists, a populated graph
 - [ ] Mermaid verified: flowchart, sequence, class, mindmap
 - [ ] Checked with Style Settings both installed and absent — every toggle is
       an opt-*out*, so the theme must look identical without the plugin
-- [ ] Checked with no CSS snippets enabled
+- [x] Checked with no CSS snippets enabled
 
 ## Installing a pre-release with BRAT
 
