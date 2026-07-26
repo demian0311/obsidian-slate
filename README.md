@@ -55,7 +55,7 @@ palette color against a palette background, not a new value.
 - **Headings** — H1–H6 walk red → orange → green → teal → blue → purple, warm
   to cool. H1 gets a red underline; the rest carry hue alone. The outline pane
   mirrors the ladder.
-- **Callouts** — every built-in type maps to a spectrum hue: note/info blue,
+- **Callouts** — every built-in type maps to a spectrum hue:
   note/info/todo blue, tip teal, success green, question cyan, warning orange,
   failure/danger red, example purple, summary/quote gray.
 - **Tags** — hued by first character across eight buckets, stepping through the
