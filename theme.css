@@ -32,12 +32,6 @@ settings:
     type: class-toggle
     default: false
   -
-    id: slate-plain-heading-bars
-    title: No H1 underline
-    description: Remove the colored rule under H1.
-    type: class-toggle
-    default: false
-  -
     id: slate-plain-folders
     title: Plain folders
     description: Turn off file-explorer folder tinting by nesting depth.
@@ -410,18 +404,10 @@ body.slate-plain-headings {
   --h6-color: var(--sl-muted);
 }
 
-/* H1 rule only. Live preview headings are .HyperMD-header-N lines, so both the
-   rendered and the source view need the treatment to stay in sync. */
-body:not(.slate-plain-heading-bars) .markdown-rendered h1,
-body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
-  border-bottom: 2px solid rgba(var(--sl-red-rgb), 0.45);
-  padding-bottom: 0.2em;
-}
-
-/* A wash behind each heading in its own hue, fading out to the right and
-   stepping down in both strength and reach as the level descends. Level is
-   then encoded twice — which hue, and how much of it — so the ladder survives
-   even where two adjacent hues are hard to tell apart.
+/* A flat wash behind each heading in its own hue, on a rounded block,
+   stepping down in strength as the level descends. Level is then encoded
+   twice — which hue, and how much of it — so the ladder survives even where
+   two adjacent hues are hard to tell apart.
 
    Reading view pulls the band into the left margin so the text stays on the
    measure; live preview only paints, since the line already owns its padding
@@ -429,62 +415,42 @@ body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-heade
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h1,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-1), 0.14) 0%,
-    rgba(var(--slate-depth-1), 0) 80%
-  );
+  background-color: rgba(var(--slate-depth-1), 0.12);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h2,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-2 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-2), 0.12) 0%,
-    rgba(var(--slate-depth-2), 0) 70%
-  );
+  background-color: rgba(var(--slate-depth-2), 0.10);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h3,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-3 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-3), 0.10) 0%,
-    rgba(var(--slate-depth-3), 0) 60%
-  );
+  background-color: rgba(var(--slate-depth-3), 0.09);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h4,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-4 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-4), 0.08) 0%,
-    rgba(var(--slate-depth-4), 0) 50%
-  );
+  background-color: rgba(var(--slate-depth-4), 0.07);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h5,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-5 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-5), 0.06) 0%,
-    rgba(var(--slate-depth-5), 0) 42%
-  );
+  background-color: rgba(var(--slate-depth-5), 0.06);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h6,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-6 {
-  background: linear-gradient(
-    90deg,
-    rgba(var(--slate-depth-6), 0.04) 0%,
-    rgba(var(--slate-depth-6), 0) 34%
-  );
+  background-color: rgba(var(--slate-depth-6), 0.05);
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header {
+  border-radius: var(--radius-m);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
-  padding-inline: 0.4em;
-  margin-inline-start: -0.4em;
-  border-radius: var(--radius-s);
+  padding: 0.18em 0.5em;
+  margin-inline-start: -0.5em;
 }
 
 /* Fold arrows and the collapse indicator pick up the heading hue. */

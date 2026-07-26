@@ -53,10 +53,11 @@ palette color against a palette background, not a new value.
 ## What is colored
 
 - **Headings** — H1–H6 walk red → orange → green → teal → blue → purple, warm
-  to cool. Each also sits on a wash of its own hue that fades out to the right,
-  stepping down in both strength and reach as the level descends — H1 at 14%
-  reaching 80% of the measure, H6 at 4% reaching 34%. H1 keeps a red underline.
-  The outline pane mirrors the ladder.
+  to cool. Each sits on a rounded block washed in its own hue, stepping down in
+  strength as the level descends: H1 at 12% through H6 at 5%. No underlines —
+  the block, the hue and the size already encode level three times over, and a
+  rule on top of a rounded block fights the radius. The outline pane mirrors
+  the ladder.
 - **Callouts** — every built-in type maps to a spectrum hue:
   note/info/todo blue, tip teal, success green, question cyan, warning orange,
   failure/danger red, example purple, summary/quote gray.
@@ -136,8 +137,7 @@ block. Everything colorful is **on by default** and the toggles turn things
 *off*, so the theme looks the same with or without the plugin installed:
 
 - Plain headings — drop the H1–H6 spectrum ladder
-- No heading tint — drop the fading wash behind headings
-- No H1 underline — drop the colored rule under H1
+- No heading tint — drop the block wash behind headings
 - Plain folders — neutral file explorer
 - Plain tags — all tags take the teal accent
 - Plain horizontal rules — hairline instead of the spectrum gradient
