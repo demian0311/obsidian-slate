@@ -109,14 +109,20 @@ block. Everything colorful is **on by default** and the toggles turn things
 
 ## Development
 
-`theme.css` is hand-written, no build step. Symlink the repo into a vault to
-edit live:
+`theme.css` is hand-written, no build step.
+
+For live editing, the working copy has to live where Obsidian's file watcher
+can see it. Obsidian does not follow a symlink out of `.obsidian/themes/`, so
+symlinking the repo *into* a vault gives you a theme that loads once and never
+hot-reloads. Put the real files in the vault and symlink back out instead:
 
 ```sh
-ln -s ~/code/obsidian-slate "<vault>/.obsidian/themes/Diagrammo Slate"
+git clone <repo> "<vault>/.obsidian/themes/Diagrammo Slate"
+ln -s "<vault>/.obsidian/themes/Diagrammo Slate" ~/code/obsidian-slate
 ```
 
-Obsidian reloads theme CSS on save.
+Now saving `theme.css` reloads the theme immediately. `Cmd+R` forces a reload
+if the watcher misses a change.
 
 ## Credits
 
