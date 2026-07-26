@@ -56,6 +56,12 @@ settings:
     type: class-toggle
     default: false
   -
+    id: slate-show-breadcrumbs
+    title: Show folder breadcrumbs
+    description: Restore the truncated folder path above the note title.
+    type: class-toggle
+    default: false
+  -
     id: slate-typography-heading
     title: Typography
     type: heading
@@ -1040,6 +1046,13 @@ body {
 .workspace-leaf-content .nav-header,
 .workspace-leaf-content .view-header-title {
   color: var(--sl-text);
+}
+
+/* The view header's breadcrumb chain truncates every folder to a few
+   characters once a note is more than two deep, so it reads as noise rather
+   than navigation. Hidden by default; the note title itself stays. */
+body:not(.slate-show-breadcrumbs) .view-header-title-parent {
+  display: none;
 }
 
 .view-header-title-parent .view-header-breadcrumb {
