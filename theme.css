@@ -806,25 +806,35 @@ body {
   --nav-collapse-icon-color-collapsed: var(--sl-orange);
 }
 
-/* Depth 1 through 6, one hue per level. The colored left rule on the children
-   container makes the nesting readable without relying on indent alone. */
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-red-rgb);
+/* Depth 1 through 6, one hue per level, sharing the ladder in section 16.
+
+   These use descendant combinators rather than a `>` chain on purpose. Child
+   combinators assume the explorer's DOM is exactly folder > children > folder,
+   which stops being true the moment a plugin re-renders the tree with wrapper
+   elements — the whole ladder then shifts by a level. Descendant chains only
+   count how many .nav-folder-children an item sits inside, so extra wrappers
+   are harmless. A deep folder matches every shallower rule too, and the
+   deepest one wins on specificity, which is exactly the intent.
+
+   The variable lands on .nav-folder rather than on the title so that the
+   folder's own children container inherits it for the left rule. */
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-1);
 }
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-orange-rgb);
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-2);
 }
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-green-rgb);
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-3);
 }
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-teal-rgb);
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-4);
 }
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-cyan-rgb);
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-5);
 }
-body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-purple-rgb);
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder-children .nav-folder {
+  --slate-depth: var(--slate-depth-6);
 }
 
 body:not(.slate-plain-folders) .nav-folder-title {
@@ -841,7 +851,9 @@ body:not(.slate-plain-folders) .nav-folder-title:hover {
   background: rgba(var(--slate-depth, var(--sl-primary-rgb)), 0.12);
 }
 
-body:not(.slate-plain-folders) .nav-folder:not(.mod-root) > .nav-folder-children {
+/* Every children container except the root's gets a rule in its parent's hue.
+   Nested-descendant form for the same reason as above. */
+body:not(.slate-plain-folders) .nav-folder-children .nav-folder-children {
   border-left: 1px solid rgba(var(--slate-depth, var(--sl-gray-rgb)), 0.3);
 }
 
