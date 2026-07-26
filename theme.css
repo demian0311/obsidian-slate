@@ -941,7 +941,8 @@ body {
 .workspace-leaf-resize-handle,
 .workspace-split > hr,
 .workspace-tabs hr,
-PLACEHOLDER: none;
+.workspace-leaf-content:not([data-type="markdown"]) hr {
+  background-image: none;
   height: auto;
   opacity: 1;
 }
