@@ -1054,7 +1054,7 @@ body {
   --slate-depth-2: var(--sl-orange-rgb);
   --slate-depth-3: var(--sl-green-rgb);
   --slate-depth-4: var(--sl-teal-rgb);
-  --slate-depth-5: var(--sl-cyan-rgb);
+  --slate-depth-5: var(--sl-blue-rgb);
   --slate-depth-6: var(--sl-purple-rgb);
 }
 
@@ -1094,31 +1094,27 @@ body {
   --list-marker-color-collapsed: rgb(var(--slate-depth-6));
 }
 
-/* Live preview: lines are siblings, not nested, so depth arrives as a class.
-   Setting the vars on the line also tints that line's indentation guides. */
-.markdown-source-view.mod-cm6 .HyperMD-list-line-1 {
-  --list-marker-color: rgb(var(--slate-depth-1));
-  --indentation-guide-color: rgba(var(--slate-depth-1), 0.3);
+/* Live preview has no per-depth class on a line — CodeMirror 6 emits a flat
+   .HyperMD-list-line and encodes the indent in inline padding. What it does
+   emit is one .cm-indent span per indentation step, so the guides can be
+   colored by their position in the line even though the bullet cannot. */
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(1) {
+  --indentation-guide-color: rgba(var(--slate-depth-1), 0.35);
 }
-.markdown-source-view.mod-cm6 .HyperMD-list-line-2 {
-  --list-marker-color: rgb(var(--slate-depth-2));
-  --indentation-guide-color: rgba(var(--slate-depth-2), 0.3);
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(2) {
+  --indentation-guide-color: rgba(var(--slate-depth-2), 0.35);
 }
-.markdown-source-view.mod-cm6 .HyperMD-list-line-3 {
-  --list-marker-color: rgb(var(--slate-depth-3));
-  --indentation-guide-color: rgba(var(--slate-depth-3), 0.3);
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(3) {
+  --indentation-guide-color: rgba(var(--slate-depth-3), 0.35);
 }
-.markdown-source-view.mod-cm6 .HyperMD-list-line-4 {
-  --list-marker-color: rgb(var(--slate-depth-4));
-  --indentation-guide-color: rgba(var(--slate-depth-4), 0.3);
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(4) {
+  --indentation-guide-color: rgba(var(--slate-depth-4), 0.35);
 }
-.markdown-source-view.mod-cm6 .HyperMD-list-line-5 {
-  --list-marker-color: rgb(var(--slate-depth-5));
-  --indentation-guide-color: rgba(var(--slate-depth-5), 0.3);
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(5) {
+  --indentation-guide-color: rgba(var(--slate-depth-5), 0.35);
 }
-.markdown-source-view.mod-cm6 .HyperMD-list-line-6 {
-  --list-marker-color: rgb(var(--slate-depth-6));
-  --indentation-guide-color: rgba(var(--slate-depth-6), 0.3);
+.markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6) {
+  --indentation-guide-color: rgba(var(--slate-depth-6), 0.35);
 }
 
 /* Nested quotes cycle the same ladder on the border and the wash. */
@@ -1139,17 +1135,13 @@ body {
   --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
 }
 
-.markdown-source-view.mod-cm6 .HyperMD-quote-1 {
-  border-left-color: rgb(var(--slate-depth-1));
-}
-.markdown-source-view.mod-cm6 .HyperMD-quote-2 {
-  border-left-color: rgb(var(--slate-depth-2));
-}
-.markdown-source-view.mod-cm6 .HyperMD-quote-3 {
-  border-left-color: rgb(var(--slate-depth-3));
-}
-.markdown-source-view.mod-cm6 .HyperMD-quote-4 {
-  border-left-color: rgb(var(--slate-depth-4));
+/* Live preview draws every quote border from a single .HyperMD-quote::before
+   with no depth information attached, so nested quotes cannot be laddered
+   there. They take the depth 1 hue to match the outermost level in reading
+   view rather than reverting to the teal accent. */
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
+  --blockquote-border-color: rgb(var(--slate-depth-1));
+  --blockquote-background-color: rgba(var(--slate-depth-1), 0.06);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1184,11 +1176,6 @@ body {
   font-style: italic;
 }
 
-/* Escapes and formatting marks stay out of the way. */
-.markdown-source-view.mod-cm6 .cm-formatting-escape {
-  color: var(--sl-gray);
-}
-
 /* Footnotes: reference and definition share the accent so the jump target is
    obvious in both directions. */
 .markdown-rendered .footnote-ref a,
@@ -1208,16 +1195,11 @@ body {
   color: var(--text-muted);
 }
 
-/* Math sits in the teal accent; a render error goes red. */
+/* Math sits in the teal accent. */
 .markdown-rendered .math,
 .markdown-source-view.mod-cm6 .cm-math,
 .markdown-source-view.mod-cm6 .HyperMD-math {
   color: var(--sl-teal);
-}
-
-.markdown-rendered .math-error,
-.markdown-source-view.mod-cm6 .cm-math-error {
-  color: var(--sl-red);
 }
 
 /* Block identifiers and transclusion chrome. */
@@ -1269,11 +1251,6 @@ body {
 
 .markdown-source-view.mod-cm6 .cm-nonmatchingBracket {
   background: rgba(var(--sl-red-rgb), 0.22);
-}
-
-.cm-s-obsidian .cm-spelling-error,
-.markdown-source-view .cm-spelling-error {
-  text-decoration-color: rgba(var(--sl-red-rgb), 0.8);
 }
 
 /* ---------------------------------------------------------------------------
@@ -1355,19 +1332,6 @@ body {
 /* Status bar: quiet until touched. */
 .status-bar-item.mod-clickable:hover {
   color: var(--sl-primary);
-}
-
-/* Bases table views inherit the table palette; the header rail gets the same
-   primary wash the markdown tables use. */
-.bases-tbody .bases-td,
-.bases-table-cell {
-  border-color: var(--table-border-color);
-}
-
-.bases-thead,
-.bases-table-header {
-  background: var(--table-header-background);
-  color: var(--table-header-color);
 }
 
 /* Print / export stays on the light ground regardless of app theme. */
