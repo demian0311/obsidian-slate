@@ -1790,8 +1790,17 @@ body {
    part most likely to need revisiting if mermaid restructures its output.
    ------------------------------------------------------------------------ */
 
-.mermaid {
-  --mermaid-font: var(--font-interface-theme);
+/* Mermaid inherits the body font into the diagram, so a serif reading face
+   ends up in flowchart labels. Diagrams are interface, not prose. Mermaid sets
+   font-family from its own theme variables, hence the override. */
+.mermaid,
+.mermaid text,
+.mermaid span,
+.mermaid p,
+.mermaid div,
+.block-language-mermaid text,
+svg[id^="mermaid-"] text {
+  font-family: var(--font-interface-theme) !important;
 }
 
 /* Flowchart and graph nodes. */
