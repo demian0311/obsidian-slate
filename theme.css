@@ -27,8 +27,8 @@ settings:
     default: false
   -
     id: slate-plain-heading-bars
-    title: No heading rules
-    description: Remove the H1 underline and the H2 left bar.
+    title: No H1 underline
+    description: Remove the colored rule under H1.
     type: class-toggle
     default: false
   -
@@ -395,19 +395,12 @@ body.slate-plain-headings {
   --h6-color: var(--sl-muted);
 }
 
-/* Heading rules. Live preview headings are .HyperMD-header-N lines, so both
-   the rendered and the source view need the treatment to stay in sync. */
+/* H1 rule only. Live preview headings are .HyperMD-header-N lines, so both the
+   rendered and the source view need the treatment to stay in sync. */
 body:not(.slate-plain-heading-bars) .markdown-rendered h1,
 body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
   border-bottom: 2px solid rgba(var(--sl-red-rgb), 0.45);
   padding-bottom: 0.2em;
-}
-
-body:not(.slate-plain-heading-bars) .markdown-rendered h2,
-body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-2 {
-  border-left: 3px solid rgba(var(--sl-orange-rgb), 0.7);
-  padding-left: 0.5em;
-  margin-left: -0.5em;
 }
 
 /* Fold arrows and the collapse indicator pick up the heading hue. */

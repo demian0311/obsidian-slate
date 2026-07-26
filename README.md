@@ -43,7 +43,7 @@ use a darkened `#8f7418` while fills and washes keep the true `#c9a227`.
 ## What is colored
 
 - **Headings** — H1–H6 walk red → orange → gold → green → blue → purple. H1
-  gets a red underline, H2 a orange left bar. The outline pane mirrors the
+  gets a red underline; the rest carry hue alone. The outline pane mirrors the
   ladder.
 - **Callouts** — every built-in type maps to a spectrum hue: note/info blue,
   tip/todo teal, success green, question gold, warning orange, failure/danger
@@ -99,7 +99,7 @@ block. Everything colorful is **on by default** and the toggles turn things
 *off*, so the theme looks the same with or without the plugin installed:
 
 - Plain headings — drop the H1–H6 spectrum ladder
-- No heading rules — drop the H1 underline and H2 bar
+- No H1 underline — drop the colored rule under H1
 - Plain folders — neutral file explorer
 - Plain tags — all tags take the teal accent
 - Plain horizontal rules — hairline instead of the spectrum gradient
