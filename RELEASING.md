@@ -19,19 +19,22 @@ The theme name must be unique across the community list, and must not contain
 This is the one step that cannot be automated — it has to be taken from a
 running Obsidian.
 
-- Obsidian's guidance is a wide screenshot, roughly 2:1, showing the theme in
-  actual use rather than a swatch grid
+- **16:9 is required**, not a suggestion — the submission template states it,
+  and 512x288 is the recommended size for fast loading. Anything else will be
+  bounced
 - Show what makes this theme itself: the heading ladder, a tinted file
   explorer with a few nesting levels, colored callouts, and a mermaid diagram
-- Take it in **light** mode — the community browser renders cards on a light
-  ground — but consider a second dark shot in the README
+- Either mode is fine; a light/dark pairing uses the single slot better when
+  the two modes are genuinely different designs
 - Save as `screenshot.png` at the repo root
 
-The current one is a composite: light and dark captured at identical framing,
-each cropped to its window shadow, flattened onto its own mode's background so
-the shadow reads naturally, and joined with a hairline divider. The sources are
-kept in `docs/`. To regenerate after re-capturing, see the compositing step in
-the commit that added it.
+The current one is a 1600x900 composite: light and dark captured at identical
+framing, each scaled to *cover* its half of the canvas and cropped from the
+right. Fitting whole windows inside a 16:9 frame leaves the card mostly empty —
+the captures are 1.30:1 while each half is 0.89:1 — and cropping from the right
+keeps the rail and the start of every line, dropping only the empty end of the
+measure. Sources are in `docs/`; the compositing script is in the commit that
+added it.
 
 ## Cutting a release
 
