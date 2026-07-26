@@ -1805,9 +1805,25 @@ body {
   stroke-width: 1.5px !important;
 }
 
-.mermaid .node .label,
+/* Labels. Mermaid renders these as HTML inside <foreignObject>, not as SVG
+   <text>, so `fill` is inert and `color` has to reach the element that
+   actually holds the glyphs — which is a <p> or <span> nested inside the
+   labelled class, not the class itself. Both properties are set across the
+   subtree so the same rule covers the SVG-text diagram types too. */
 .mermaid .nodeLabel,
-.mermaid .label {
+.mermaid .nodeLabel *,
+.mermaid .label,
+.mermaid .label *,
+.mermaid .cluster-label,
+.mermaid .cluster-label *,
+.mermaid foreignObject div,
+.mermaid foreignObject span,
+.mermaid foreignObject p,
+.mermaid text.actor,
+.mermaid text.actor > tspan,
+.mermaid .actor-box + text,
+.mermaid .statediagram-state text,
+.mermaid .classGroup text {
   color: var(--sl-text) !important;
   fill: var(--sl-text) !important;
 }
@@ -1826,11 +1842,17 @@ body {
   stroke: none !important;
 }
 
-.mermaid .edgeLabel,
-.mermaid .edgeLabel rect {
+.mermaid .edgeLabel rect,
+.mermaid .edgeLabel foreignObject > div {
   background-color: var(--sl-surface) !important;
   fill: var(--sl-surface) !important;
+}
+
+.mermaid .edgeLabel,
+.mermaid .edgeLabel *,
+.mermaid .edgeLabel foreignObject p {
   color: var(--sl-muted) !important;
+  fill: var(--sl-muted) !important;
 }
 
 /* Subgraphs and clusters. */
