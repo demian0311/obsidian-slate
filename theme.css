@@ -74,6 +74,12 @@ settings:
     type: class-toggle
     default: false
   -
+    id: slate-cvd-ladder
+    title: Colorblind-safe ladder
+    description: Reorder the depth ladder to lead with blue and orange instead of red and green.
+    type: class-toggle
+    default: false
+  -
     id: slate-typography-heading
     title: Typography
     type: heading
@@ -122,9 +128,23 @@ settings:
   --sl-cyan-rgb: 79, 150, 196;
   --sl-gray-rgb: 126, 138, 151;
 
-  /* fills and washes */
+  /* fills and washes. Every alpha the theme uses lives here rather than at its
+     point of use, so the dark ground can carry its own values. Color at a low
+     alpha reads weaker against #161b22 than against white, so the dark set
+     runs roughly 1.4x throughout. */
   --sl-wash: 0.1;
   --sl-wash-strong: 0.18;
+  --slate-tint-1: 0.12;
+  --slate-tint-2: 0.10;
+  --slate-tint-3: 0.09;
+  --slate-tint-4: 0.07;
+  --slate-tint-5: 0.06;
+  --slate-tint-6: 0.05;
+  --slate-halo: 0.18;
+  --slate-file-alpha: 0.75;
+  --slate-quote-wash: 0.06;
+  --slate-guide-alpha: 0.35;
+  --slate-rule-alpha: 0.3;
   --sl-shadow-color: 31, 41, 51;
   --sl-shadow-strength: 0.09;
   color-scheme: light;
@@ -156,6 +176,17 @@ settings:
 
   --sl-wash: 0.14;
   --sl-wash-strong: 0.24;
+  --slate-tint-1: 0.18;
+  --slate-tint-2: 0.16;
+  --slate-tint-3: 0.14;
+  --slate-tint-4: 0.12;
+  --slate-tint-5: 0.10;
+  --slate-tint-6: 0.08;
+  --slate-halo: 0.24;
+  --slate-file-alpha: 0.82;
+  --slate-quote-wash: 0.10;
+  --slate-guide-alpha: 0.45;
+  --slate-rule-alpha: 0.4;
   --sl-shadow-color: var(--sl-bg-rgb);
   --sl-shadow-strength: 0.4;
   color-scheme: dark;
@@ -202,6 +233,21 @@ body {
   --slate-rot-6: var(--sl-blue-rgb);
   --slate-rot-7: var(--sl-purple-rgb);
   --slate-rot-8: var(--sl-gray-rgb);
+}
+
+/* The default ladder puts red at 1 and green at 3. Under deuteranopia and
+   protanopia those two are the hardest pair in the palette to tell apart.
+   Level is also carried by wash strength and type size, so the ladder is not
+   the only signal — but where it is the only one (folder depth, bullets), an
+   alternate ordering leads with the blue/orange pair that survives every
+   common form of color vision deficiency. */
+body.slate-cvd-ladder {
+  --slate-depth-1: var(--sl-blue-rgb);
+  --slate-depth-2: var(--sl-orange-rgb);
+  --slate-depth-3: var(--sl-purple-rgb);
+  --slate-depth-4: var(--sl-teal-rgb);
+  --slate-depth-5: var(--sl-red-rgb);
+  --slate-depth-6: var(--sl-gray-rgb);
 }
 
 /* ---------------------------------------------------------------------------
@@ -440,32 +486,32 @@ body.slate-plain-headings {
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h1,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
-  background-color: rgba(var(--slate-depth-1), 0.12);
+  background-color: rgba(var(--slate-depth-1), var(--slate-tint-1));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h2,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-2 {
-  background-color: rgba(var(--slate-depth-2), 0.10);
+  background-color: rgba(var(--slate-depth-2), var(--slate-tint-2));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h3,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-3 {
-  background-color: rgba(var(--slate-depth-3), 0.09);
+  background-color: rgba(var(--slate-depth-3), var(--slate-tint-3));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h4,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-4 {
-  background-color: rgba(var(--slate-depth-4), 0.07);
+  background-color: rgba(var(--slate-depth-4), var(--slate-tint-4));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h5,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-5 {
-  background-color: rgba(var(--slate-depth-5), 0.06);
+  background-color: rgba(var(--slate-depth-5), var(--slate-tint-5));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h6,
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-6 {
-  background-color: rgba(var(--slate-depth-6), 0.05);
+  background-color: rgba(var(--slate-depth-6), var(--slate-tint-6));
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6),
@@ -938,14 +984,14 @@ body:not(.slate-plain-folders) .nav-folder-title:hover {
 
 /* Each folder's children container carries a rule in that folder's own hue. */
 body:not(.slate-plain-folders) .nav-folder .nav-folder-children {
-  border-left: 1px solid rgba(var(--slate-depth, var(--sl-gray-rgb)), 0.3);
+  border-left: 1px solid rgba(var(--slate-depth, var(--sl-gray-rgb)), var(--slate-rule-alpha));
 }
 
 /* Files inherit their folder's hue at reduced strength, so a subtree reads as
    one block of color. The folder still leads: full strength and heavier. Files
    sitting at the vault root inherit nothing and fall back to the muted ink. */
 body:not(.slate-plain-folders) .nav-file-title {
-  color: rgba(var(--slate-depth, var(--sl-muted-rgb)), 0.75);
+  color: rgba(var(--slate-depth, var(--sl-muted-rgb)), var(--slate-file-alpha));
   font-weight: 400;
 }
 
@@ -1161,7 +1207,7 @@ input[type="range"]::-webkit-slider-thumb {
    level's triplet because box-shadow needs the components, not a color. */
 .markdown-rendered .list-bullet::after,
 .markdown-source-view.mod-cm6 .list-bullet::after {
-  box-shadow: 0 0 0 3px rgba(var(--slate-marker, var(--sl-gray-rgb)), 0.18);
+  box-shadow: 0 0 0 3px rgba(var(--slate-marker, var(--sl-gray-rgb)), var(--slate-halo));
 }
 
 /* Reading view: nesting is real DOM nesting, so the cascade does the work. */
@@ -1244,40 +1290,40 @@ input[type="range"]::-webkit-slider-thumb {
 /* Guides key off .cm-indent position, one span per indentation step, so each
    vertical rule takes the hue of the level it introduces. */
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(1) {
-  --indentation-guide-color: rgba(var(--slate-depth-1), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-1), var(--slate-guide-alpha));
 }
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(2) {
-  --indentation-guide-color: rgba(var(--slate-depth-2), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-2), var(--slate-guide-alpha));
 }
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(3) {
-  --indentation-guide-color: rgba(var(--slate-depth-3), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-3), var(--slate-guide-alpha));
 }
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(4) {
-  --indentation-guide-color: rgba(var(--slate-depth-4), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-4), var(--slate-guide-alpha));
 }
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(5) {
-  --indentation-guide-color: rgba(var(--slate-depth-5), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-5), var(--slate-guide-alpha));
 }
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(6) {
-  --indentation-guide-color: rgba(var(--slate-depth-6), 0.35);
+  --indentation-guide-color: rgba(var(--slate-depth-6), var(--slate-guide-alpha));
 }
 
 /* Nested quotes cycle the same ladder on the border and the wash. */
 .markdown-rendered blockquote {
   --blockquote-border-color: rgb(var(--slate-depth-1));
-  --blockquote-background-color: rgba(var(--slate-depth-1), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-1), var(--slate-quote-wash));
 }
 .markdown-rendered blockquote blockquote {
   --blockquote-border-color: rgb(var(--slate-depth-2));
-  --blockquote-background-color: rgba(var(--slate-depth-2), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-2), var(--slate-quote-wash));
 }
 .markdown-rendered blockquote blockquote blockquote {
   --blockquote-border-color: rgb(var(--slate-depth-3));
-  --blockquote-background-color: rgba(var(--slate-depth-3), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-3), var(--slate-quote-wash));
 }
 .markdown-rendered blockquote blockquote blockquote blockquote {
   --blockquote-border-color: rgb(var(--slate-depth-4));
-  --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-4), var(--slate-quote-wash));
 }
 
 /* Live preview quotes carry HyperMD-quote-N the same way. The unnumbered rule
@@ -1285,19 +1331,19 @@ input[type="range"]::-webkit-slider-thumb {
    its specificity and follow, so they win. */
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
   --blockquote-border-color: rgb(var(--slate-depth-1));
-  --blockquote-background-color: rgba(var(--slate-depth-1), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-1), var(--slate-quote-wash));
 }
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-2 {
   --blockquote-border-color: rgb(var(--slate-depth-2));
-  --blockquote-background-color: rgba(var(--slate-depth-2), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-2), var(--slate-quote-wash));
 }
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-3 {
   --blockquote-border-color: rgb(var(--slate-depth-3));
-  --blockquote-background-color: rgba(var(--slate-depth-3), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-3), var(--slate-quote-wash));
 }
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-4 {
   --blockquote-border-color: rgb(var(--slate-depth-4));
-  --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
+  --blockquote-background-color: rgba(var(--slate-depth-4), var(--slate-quote-wash));
 }
 
 /* ---------------------------------------------------------------------------
@@ -1731,10 +1777,262 @@ body {
   text-decoration: underline;
 }
 
-/* Print / export stays on the light ground regardless of app theme. */
+/* ---------------------------------------------------------------------------
+   21. Mermaid
+
+   Mermaid injects its own <style> into each diagram's SVG, scoped by the
+   diagram's id — that is an id selector, so nothing here lands without
+   !important. This is the one place in the theme that needs it.
+
+   Verified against the section-N pattern four other themes in the wild rely
+   on. The flowchart, sequence and class selectors are mermaid's documented
+   public class names; they are stable across mermaid 10 and 11 but are the
+   part most likely to need revisiting if mermaid restructures its output.
+   ------------------------------------------------------------------------ */
+
+.mermaid {
+  --mermaid-font: var(--font-interface-theme);
+}
+
+/* Flowchart and graph nodes. */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+  fill: rgba(var(--sl-primary-rgb), var(--sl-wash)) !important;
+  stroke: var(--sl-primary) !important;
+  stroke-width: 1.5px !important;
+}
+
+.mermaid .node .label,
+.mermaid .nodeLabel,
+.mermaid .label {
+  color: var(--sl-text) !important;
+  fill: var(--sl-text) !important;
+}
+
+/* Edges and their labels. */
+.mermaid .edgePath .path,
+.mermaid .flowchart-link,
+.mermaid line.messageLine0,
+.mermaid line.messageLine1 {
+  stroke: var(--sl-gray) !important;
+}
+
+.mermaid .arrowheadPath,
+.mermaid marker path {
+  fill: var(--sl-gray) !important;
+  stroke: none !important;
+}
+
+.mermaid .edgeLabel,
+.mermaid .edgeLabel rect {
+  background-color: var(--sl-surface) !important;
+  fill: var(--sl-surface) !important;
+  color: var(--sl-muted) !important;
+}
+
+/* Subgraphs and clusters. */
+.mermaid .cluster rect {
+  fill: rgba(var(--sl-gray-rgb), 0.06) !important;
+  stroke: rgba(var(--sl-gray-rgb), 0.5) !important;
+}
+
+.mermaid .cluster text,
+.mermaid .cluster .nodeLabel {
+  fill: var(--sl-muted) !important;
+}
+
+/* Sequence diagrams. */
+.mermaid .actor {
+  fill: rgba(var(--sl-accent-rgb), var(--sl-wash)) !important;
+  stroke: var(--sl-accent) !important;
+}
+
+.mermaid text.actor,
+.mermaid text.actor > tspan {
+  fill: var(--sl-text) !important;
+  stroke: none !important;
+}
+
+.mermaid .messageText {
+  fill: var(--sl-text) !important;
+  stroke: none !important;
+}
+
+.mermaid .labelBox {
+  fill: rgba(var(--sl-primary-rgb), var(--sl-wash)) !important;
+  stroke: var(--sl-primary) !important;
+}
+
+.mermaid .labelText,
+.mermaid .labelText > tspan,
+.mermaid .loopText,
+.mermaid .loopText > tspan {
+  fill: var(--sl-text) !important;
+}
+
+.mermaid .loopLine {
+  stroke: var(--sl-purple) !important;
+}
+
+.mermaid .note {
+  fill: rgba(var(--sl-yellow-rgb), var(--sl-wash-strong)) !important;
+  stroke: rgba(var(--sl-yellow-rgb), 0.6) !important;
+}
+
+.mermaid .noteText,
+.mermaid .noteText > tspan {
+  fill: var(--sl-text) !important;
+}
+
+/* Class and state diagrams. */
+.mermaid .classGroup rect,
+.mermaid .statediagram-state rect,
+.mermaid .stateGroup rect {
+  fill: rgba(var(--sl-purple-rgb), var(--sl-wash)) !important;
+  stroke: var(--sl-purple) !important;
+}
+
+.mermaid .classGroup line,
+.mermaid .statediagram-state .divider {
+  stroke: rgba(var(--sl-purple-rgb), 0.5) !important;
+}
+
+.mermaid .classTitle,
+.mermaid .stateGroup text {
+  fill: var(--sl-text) !important;
+}
+
+/* Entity relationship. */
+.mermaid .entityBox {
+  fill: rgba(var(--sl-teal-rgb), var(--sl-wash)) !important;
+  stroke: var(--sl-teal) !important;
+}
+
+.mermaid .entityLabel {
+  fill: var(--sl-text) !important;
+}
+
+/* Mindmaps and gantt sections walk the rotation, one hue per section. */
+.mermaid .section-0 rect,
+.mermaid .section-0 path,
+.mermaid .section-0 line,
+.mermaid .section-edge-0 {
+  fill: rgb(var(--slate-rot-1)) !important;
+  stroke: rgb(var(--slate-rot-1)) !important;
+}
+
+.mermaid .section-1 rect,
+.mermaid .section-1 path,
+.mermaid .section-1 line,
+.mermaid .section-edge-1 {
+  fill: rgb(var(--slate-rot-2)) !important;
+  stroke: rgb(var(--slate-rot-2)) !important;
+}
+
+.mermaid .section-2 rect,
+.mermaid .section-2 path,
+.mermaid .section-2 line,
+.mermaid .section-edge-2 {
+  fill: rgb(var(--slate-rot-3)) !important;
+  stroke: rgb(var(--slate-rot-3)) !important;
+}
+
+.mermaid .section-3 rect,
+.mermaid .section-3 path,
+.mermaid .section-3 line,
+.mermaid .section-edge-3 {
+  fill: rgb(var(--slate-rot-4)) !important;
+  stroke: rgb(var(--slate-rot-4)) !important;
+}
+
+.mermaid .section-4 rect,
+.mermaid .section-4 path,
+.mermaid .section-4 line,
+.mermaid .section-edge-4 {
+  fill: rgb(var(--slate-rot-5)) !important;
+  stroke: rgb(var(--slate-rot-5)) !important;
+}
+
+.mermaid .section-5 rect,
+.mermaid .section-5 path,
+.mermaid .section-5 line,
+.mermaid .section-edge-5 {
+  fill: rgb(var(--slate-rot-6)) !important;
+  stroke: rgb(var(--slate-rot-6)) !important;
+}
+
+.mermaid .section-6 rect,
+.mermaid .section-6 path,
+.mermaid .section-6 line,
+.mermaid .section-edge-6 {
+  fill: rgb(var(--slate-rot-7)) !important;
+  stroke: rgb(var(--slate-rot-7)) !important;
+}
+
+.mermaid .mindmap-node text,
+.mermaid .sectionTitle {
+  fill: var(--text-on-accent) !important;
+}
+
+/* Gantt grid and today marker. */
+.mermaid .grid .tick line {
+  stroke: rgba(var(--sl-gray-rgb), 0.3) !important;
+}
+
+.mermaid .today {
+  stroke: var(--sl-red) !important;
+}
+
+/* ---------------------------------------------------------------------------
+   20. Print and motion
+   ------------------------------------------------------------------------ */
+
+/* Print and PDF export stay on the light ground regardless of app theme, and
+   drop every wash: a 12% tint that reads as color on screen prints as a gray
+   band, and the bullet halos print as smudges. Hue on the ink itself is kept,
+   since that is what carries the structure. */
 @media print {
   body {
     --background-primary: #ffffff;
     --text-normal: #1f2933;
+    --slate-tint-1: 0;
+    --slate-tint-2: 0;
+    --slate-tint-3: 0;
+    --slate-tint-4: 0;
+    --slate-tint-5: 0;
+    --slate-tint-6: 0;
+    --slate-halo: 0;
+    --slate-quote-wash: 0;
+  }
+
+  .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+    padding: 0;
+    margin-inline-start: 0;
+  }
+
+  .markdown-rendered pre,
+  .markdown-rendered code {
+    background: none;
+  }
+
+  hr {
+    background: none;
+    border-top: 1px solid #d4dae1;
+  }
+}
+
+/* The theme adds transitions to bullets, icons and washes. Honor the system
+   setting rather than animating regardless. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
   }
 }

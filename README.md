@@ -77,6 +77,10 @@ palette color against a palette background, not a new value.
   fenced blocks sit on the neutral panel with a purple spine.
 - **Tasks** — `[>]` blue, `[!]` orange, `[?]` cyan, `[*]` purple, `[-]` red and
   struck through. Only a real `[x]` dims.
+- **Mermaid** — flowchart nodes primary, sequence actors accent, class and
+  state diagrams purple, ER teal, notes gold, edges gray. Mindmap and gantt
+  sections walk the rotation. Mermaid scopes its injected styles by diagram id,
+  so this is the one section of the theme that requires `!important`.
 - **Graph & canvas** — nodes blue, focused orange, tags teal, attachments
   purple, unresolved red. Canvas colors 1–6 map to the spectrum.
 - **Nesting** — list bullets, nested blockquotes and live-preview indentation
@@ -123,6 +127,18 @@ Settings:
 - **No heading underlines.** Level is already carried by hue, wash strength and
   type size.
 
+## Print, motion and color vision
+
+Print and PDF export drop every wash — a 12% tint reads as color on screen but
+prints as a gray band — while keeping hue on the ink itself, which is what
+carries the structure. `prefers-reduced-motion` is honored.
+
+The default ladder puts red at level 1 and green at level 3, the hardest pair
+to separate under deuteranopia and protanopia. Level is also encoded by wash
+strength and type size, so the ladder is rarely the only signal — but where it
+is (folder depth, bullets), the **Colorblind-safe ladder** toggle reorders it
+to lead with blue and orange.
+
 ## Typography
 
 System fonts only — nothing is downloaded.
@@ -158,6 +174,7 @@ The theme ships a [Style Settings](https://github.com/mgmeyers/obsidian-style-se
 block. Everything colorful is **on by default** and the toggles turn things
 *off*, so the theme looks the same with or without the plugin installed:
 
+- Colorblind-safe ladder — reorder depth to lead with blue and orange
 - Show note title in the view header — restore the name next to the nav buttons
 - Show inline title — restore the large note name atop the note body
 - Show folder breadcrumbs — restore the folder path (needs the header title)
