@@ -1805,22 +1805,30 @@ body {
   stroke-width: 1.5px !important;
 }
 
-/* Labels. Two mechanisms are in play and which one a diagram uses changes
-   between mermaid versions: some render labels as SVG <text>, others as HTML
-   inside a <foreignObject>, where `fill` is inert and `color` has to reach a
-   nested <p> or <span>. Rather than enumerate per-diagram class names — three
-   attempts at that missed, and mermaid 11 moved class diagrams onto the
-   generic node renderer — everything textual is set here and the handful of
-   genuine exceptions are re-asserted below. */
+/* Labels. Node fills land but text has resisted three rounds of increasingly
+   specific class selectors, so this stops naming mermaid's classes entirely and
+   targets every element that can carry a glyph. Both properties are set because
+   SVG text takes `fill` while the HTML inside a <foreignObject> takes `color`,
+   and which one a diagram uses moves between mermaid versions. Shapes are
+   untouched — no rect, path, circle or polygon appears here. The container is
+   matched three ways so a change to how Obsidian wraps the diagram cannot
+   silently drop the rules. */
 .mermaid text,
-.mermaid text tspan,
-.mermaid .label,
-.mermaid .label *,
-.mermaid .nodeLabel,
-.mermaid .nodeLabel *,
-.mermaid .cluster-label,
-.mermaid .cluster-label *,
-.mermaid foreignObject * {
+.mermaid tspan,
+.mermaid span,
+.mermaid p,
+.mermaid div,
+.mermaid label,
+.block-language-mermaid text,
+.block-language-mermaid tspan,
+.block-language-mermaid span,
+.block-language-mermaid p,
+.block-language-mermaid div,
+svg[id^="mermaid-"] text,
+svg[id^="mermaid-"] tspan,
+svg[id^="mermaid-"] span,
+svg[id^="mermaid-"] p,
+svg[id^="mermaid-"] div {
   color: var(--sl-text) !important;
   fill: var(--sl-text) !important;
 }
@@ -1834,11 +1842,11 @@ body {
 
 .mermaid .edgeLabel,
 .mermaid .edgeLabel *,
-.mermaid .edgeLabel foreignObject p {
+.block-language-mermaid .edgeLabel *,
+svg[id^="mermaid-"] .edgeLabel * {
   color: var(--sl-muted) !important;
   fill: var(--sl-muted) !important;
 }
-
 
 /* Subgraphs and clusters. */
 .mermaid .cluster rect {
@@ -1987,7 +1995,9 @@ body {
 .mermaid .mindmap-node .nodeLabel,
 .mermaid .mindmap-node .nodeLabel *,
 .mermaid .sectionTitle,
-.mermaid .sectionTitle * {
+.mermaid .sectionTitle *,
+.block-language-mermaid .mindmap-node *,
+svg[id^="mermaid-"] .mindmap-node * {
   color: var(--text-on-accent) !important;
   fill: var(--text-on-accent) !important;
 }
