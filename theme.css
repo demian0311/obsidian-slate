@@ -1094,10 +1094,37 @@ body {
   --list-marker-color-collapsed: rgb(var(--slate-depth-6));
 }
 
-/* Live preview has no per-depth class on a line — CodeMirror 6 emits a flat
-   .HyperMD-list-line and encodes the indent in inline padding. What it does
-   emit is one .cm-indent span per indentation step, so the guides can be
-   colored by their position in the line even though the bullet cannot. */
+/* Live preview tags each list line with its depth as HyperMD-list-line-N, and
+   .list-bullet::after takes its fill from --list-marker-color, so the bullet
+   ladder works there too. (The class is absent from Obsidian's own stylesheet
+   but present in the DOM — do not conclude it is unavailable from app.css.) */
+.markdown-source-view.mod-cm6 .HyperMD-list-line-1 {
+  --list-marker-color: rgb(var(--slate-depth-1));
+  --list-marker-color-hover: rgb(var(--slate-depth-1));
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-2 {
+  --list-marker-color: rgb(var(--slate-depth-2));
+  --list-marker-color-hover: rgb(var(--slate-depth-2));
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-3 {
+  --list-marker-color: rgb(var(--slate-depth-3));
+  --list-marker-color-hover: rgb(var(--slate-depth-3));
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-4 {
+  --list-marker-color: rgb(var(--slate-depth-4));
+  --list-marker-color-hover: rgb(var(--slate-depth-4));
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-5 {
+  --list-marker-color: rgb(var(--slate-depth-5));
+  --list-marker-color-hover: rgb(var(--slate-depth-5));
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-6 {
+  --list-marker-color: rgb(var(--slate-depth-6));
+  --list-marker-color-hover: rgb(var(--slate-depth-6));
+}
+
+/* Guides key off .cm-indent position, one span per indentation step, so each
+   vertical rule takes the hue of the level it introduces. */
 .markdown-source-view.mod-cm6 .cm-indent:nth-of-type(1) {
   --indentation-guide-color: rgba(var(--slate-depth-1), 0.35);
 }
@@ -1135,13 +1162,24 @@ body {
   --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
 }
 
-/* Live preview draws every quote border from a single .HyperMD-quote::before
-   with no depth information attached, so nested quotes cannot be laddered
-   there. They take the depth 1 hue to match the outermost level in reading
-   view rather than reverting to the teal accent. */
+/* Live preview quotes carry HyperMD-quote-N the same way. The unnumbered rule
+   comes first as the floor for depths past the ladder; the numbered ones match
+   its specificity and follow, so they win. */
 .markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote {
   --blockquote-border-color: rgb(var(--slate-depth-1));
   --blockquote-background-color: rgba(var(--slate-depth-1), 0.06);
+}
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-2 {
+  --blockquote-border-color: rgb(var(--slate-depth-2));
+  --blockquote-background-color: rgba(var(--slate-depth-2), 0.06);
+}
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-3 {
+  --blockquote-border-color: rgb(var(--slate-depth-3));
+  --blockquote-background-color: rgba(var(--slate-depth-3), 0.06);
+}
+.markdown-source-view.mod-cm6.is-live-preview .HyperMD-quote-4 {
+  --blockquote-border-color: rgb(var(--slate-depth-4));
+  --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
 }
 
 /* ---------------------------------------------------------------------------

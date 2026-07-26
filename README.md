@@ -79,9 +79,9 @@ palette color against a palette background, not a new value.
 - **Nesting** — list bullets, nested blockquotes and live-preview indentation
   guides all walk the same six-step ladder the file explorer and the headings
   use, so depth reads identically whichever structure you are looking at.
-  Reading view gets the full ladder; live preview only colors the indentation
-  guides, since CodeMirror encodes list and quote depth in inline padding
-  rather than in a class a stylesheet can select on.
+  Both reading view and live preview get the full ladder — live preview list
+  lines and quote lines carry their depth as a class, and indentation guides
+  are colored per level on top of that.
 - **Links by target** — note links blue, heading links cyan, block references
   purple, attachments and canvases teal, external purple, unresolved red.
 - **Inline detail** — inline title blue, math teal, footnote refs
