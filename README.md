@@ -154,13 +154,14 @@ Measure is `42rem`, body line height `1.7`, headings tracked at `-0.018em`.
 
 ## Install
 
-### From the community list
-
-Settings → Appearance → Themes → Manage → search *Diagrammo Slate*.
-
 ### With BRAT
 
-Add `demian0311/obsidian-slate` as a beta theme in BRAT.
+Add `demian0311/obsidian-slate` as a beta theme in
+[BRAT](https://github.com/TfTHacker/obsidian42-brat).
+
+### From the community list
+
+Not submitted yet — see [RELEASING.md](RELEASING.md).
 
 ### Manually
 
