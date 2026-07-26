@@ -82,7 +82,10 @@ palette color against a palette background, not a new value.
 - **Mermaid** — flowchart nodes primary, sequence actors accent, class and
   state diagrams purple, ER teal, notes gold, edges gray. Mindmap and gantt
   sections walk the rotation. Mermaid scopes its injected styles by diagram id,
-  so this is the one section of the theme that requires `!important`.
+  so this is the one section of the theme that requires `!important`. Label
+  color is set across the whole subtree rather than per diagram type: mermaid
+  renders some labels as SVG `<text>` and others as HTML in a `<foreignObject>`,
+  and which is used moves between versions.
 - **Graph & canvas** — nodes blue, focused orange, tags teal, attachments
   purple, unresolved red. Canvas colors 1–6 map to the spectrum.
 - **Nesting** — list bullets, nested blockquotes and live-preview indentation

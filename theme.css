@@ -1805,43 +1805,27 @@ body {
   stroke-width: 1.5px !important;
 }
 
-/* Labels. Mermaid renders these as HTML inside <foreignObject>, not as SVG
-   <text>, so `fill` is inert and `color` has to reach the element that
-   actually holds the glyphs — which is a <p> or <span> nested inside the
-   labelled class, not the class itself. Both properties are set across the
-   subtree so the same rule covers the SVG-text diagram types too. */
-.mermaid .nodeLabel,
-.mermaid .nodeLabel *,
+/* Labels. Two mechanisms are in play and which one a diagram uses changes
+   between mermaid versions: some render labels as SVG <text>, others as HTML
+   inside a <foreignObject>, where `fill` is inert and `color` has to reach a
+   nested <p> or <span>. Rather than enumerate per-diagram class names — three
+   attempts at that missed, and mermaid 11 moved class diagrams onto the
+   generic node renderer — everything textual is set here and the handful of
+   genuine exceptions are re-asserted below. */
+.mermaid text,
+.mermaid text tspan,
 .mermaid .label,
 .mermaid .label *,
+.mermaid .nodeLabel,
+.mermaid .nodeLabel *,
 .mermaid .cluster-label,
 .mermaid .cluster-label *,
-.mermaid foreignObject div,
-.mermaid foreignObject span,
-.mermaid foreignObject p,
-.mermaid text.actor,
-.mermaid text.actor > tspan,
-.mermaid .actor-box + text,
-.mermaid .statediagram-state text,
-.mermaid .classGroup text {
+.mermaid foreignObject * {
   color: var(--sl-text) !important;
   fill: var(--sl-text) !important;
 }
 
-/* Edges and their labels. */
-.mermaid .edgePath .path,
-.mermaid .flowchart-link,
-.mermaid line.messageLine0,
-.mermaid line.messageLine1 {
-  stroke: var(--sl-gray) !important;
-}
-
-.mermaid .arrowheadPath,
-.mermaid marker path {
-  fill: var(--sl-gray) !important;
-  stroke: none !important;
-}
-
+/* Exception: edge labels are apparatus, not content. */
 .mermaid .edgeLabel rect,
 .mermaid .edgeLabel foreignObject > div {
   background-color: var(--sl-surface) !important;
@@ -1854,6 +1838,7 @@ body {
   color: var(--sl-muted) !important;
   fill: var(--sl-muted) !important;
 }
+
 
 /* Subgraphs and clusters. */
 .mermaid .cluster rect {
@@ -1909,7 +1894,13 @@ body {
   fill: var(--sl-text) !important;
 }
 
-/* Class and state diagrams. */
+/* Class, state and ER diagrams. Mermaid 11 renders these through the same
+   node path as flowcharts, so the old per-diagram class names no longer match.
+   The svg carries its type in aria-roledescription, which is stable and is the
+   only reliable way left to give a diagram type its own hue. */
+.mermaid svg[aria-roledescription="classDiagram"] .node rect,
+.mermaid svg[aria-roledescription="classDiagram"] .node path,
+.mermaid svg[aria-roledescription="stateDiagram"] .node rect,
 .mermaid .classGroup rect,
 .mermaid .statediagram-state rect,
 .mermaid .stateGroup rect {
@@ -1917,24 +1908,16 @@ body {
   stroke: var(--sl-purple) !important;
 }
 
+.mermaid svg[aria-roledescription="classDiagram"] line,
 .mermaid .classGroup line,
 .mermaid .statediagram-state .divider {
   stroke: rgba(var(--sl-purple-rgb), 0.5) !important;
 }
 
-.mermaid .classTitle,
-.mermaid .stateGroup text {
-  fill: var(--sl-text) !important;
-}
-
-/* Entity relationship. */
+.mermaid svg[aria-roledescription="er"] .node rect,
 .mermaid .entityBox {
   fill: rgba(var(--sl-teal-rgb), var(--sl-wash)) !important;
   stroke: var(--sl-teal) !important;
-}
-
-.mermaid .entityLabel {
-  fill: var(--sl-text) !important;
 }
 
 /* Mindmaps and gantt sections walk the rotation, one hue per section. */
@@ -1994,8 +1977,18 @@ body {
   stroke: rgb(var(--slate-rot-7)) !important;
 }
 
+/* Exception: mindmap and gantt section labels sit on a saturated fill from the
+   rotation, so they take the on-fill white in both modes rather than the body
+   ink — which would be near-black on a red section in light mode. Covers both
+   the SVG-text and foreignObject label paths. */
 .mermaid .mindmap-node text,
-.mermaid .sectionTitle {
+.mermaid .mindmap-node text tspan,
+.mermaid .mindmap-node foreignObject *,
+.mermaid .mindmap-node .nodeLabel,
+.mermaid .mindmap-node .nodeLabel *,
+.mermaid .sectionTitle,
+.mermaid .sectionTitle * {
+  color: var(--text-on-accent) !important;
   fill: var(--text-on-accent) !important;
 }
 
