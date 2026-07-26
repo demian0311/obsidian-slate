@@ -273,9 +273,13 @@ body {
   --background-modifier-success-rgb: var(--sl-green-rgb);
   --background-modifier-message: rgba(var(--sl-text-rgb), 0.85);
 
-  --divider-color: var(--sl-border);
-  --divider-color-hover: var(--sl-primary);
-  --hr-color: var(--sl-border);
+  /* Workspace splitters: hairline, low contrast, no grab-bar bulk. */
+  --divider-color: rgba(var(--sl-border-rgb), 0.55);
+  --divider-color-hover: rgba(var(--sl-primary-rgb), 0.35);
+  --divider-width: 1px;
+  --divider-width-hover: 1px;
+  --divider-vertical-height: 100%;
+  --hr-color: rgba(var(--sl-border-rgb), 0.55);
 
   --modal-background: var(--sl-bg);
   --modal-border-color: var(--sl-border);
@@ -931,6 +935,21 @@ body {
 /* ---------------------------------------------------------------------------
    15. Chrome details
    ------------------------------------------------------------------------ */
+
+/* Splitters stay hairlines. The spectrum gradient is note content only — it
+   must never leak onto workspace chrome or a plugin pane's own divider. */
+.workspace-leaf-resize-handle,
+.workspace-split > hr,
+.workspace-tabs hr,
+PLACEHOLDER: none;
+  height: auto;
+  opacity: 1;
+}
+
+.workspace-leaf-content:not([data-type="markdown"]) hr {
+  border: none;
+  border-top: 1px solid rgba(var(--sl-border-rgb), 0.55);
+}
 
 /* Active tab flags itself with a primary top rule. */
 .workspace-tab-header.is-active {
