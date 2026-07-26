@@ -26,6 +26,12 @@ settings:
     type: class-toggle
     default: false
   -
+    id: slate-plain-heading-tint
+    title: No heading tint
+    description: Remove the fading background wash behind each heading.
+    type: class-toggle
+    default: false
+  -
     id: slate-plain-heading-bars
     title: No H1 underline
     description: Remove the colored rule under H1.
@@ -162,6 +168,16 @@ body {
   --sl-teal: rgb(var(--sl-teal-rgb));
   --sl-cyan: rgb(var(--sl-cyan-rgb));
   --sl-gray: rgb(var(--sl-gray-rgb));
+
+  /* The ladder: one warm-to-cool sequence shared by heading level, folder
+     depth, list depth and quote depth, so nesting reads the same everywhere.
+     Yellow is absent because it cannot carry ink on the light ground. */
+  --slate-depth-1: var(--sl-red-rgb);
+  --slate-depth-2: var(--sl-orange-rgb);
+  --slate-depth-3: var(--sl-green-rgb);
+  --slate-depth-4: var(--sl-teal-rgb);
+  --slate-depth-5: var(--sl-blue-rgb);
+  --slate-depth-6: var(--sl-purple-rgb);
 }
 
 /* ---------------------------------------------------------------------------
@@ -400,6 +416,75 @@ body:not(.slate-plain-heading-bars) .markdown-rendered h1,
 body:not(.slate-plain-heading-bars) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
   border-bottom: 2px solid rgba(var(--sl-red-rgb), 0.45);
   padding-bottom: 0.2em;
+}
+
+/* A wash behind each heading in its own hue, fading out to the right and
+   stepping down in both strength and reach as the level descends. Level is
+   then encoded twice — which hue, and how much of it — so the ladder survives
+   even where two adjacent hues are hard to tell apart.
+
+   Reading view pulls the band into the left margin so the text stays on the
+   measure; live preview only paints, since the line already owns its padding
+   and a negative margin there causes horizontal overflow. */
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h1,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-1 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-1), 0.14) 0%,
+    rgba(var(--slate-depth-1), 0) 80%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h2,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-2 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-2), 0.12) 0%,
+    rgba(var(--slate-depth-2), 0) 70%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h3,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-3 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-3), 0.10) 0%,
+    rgba(var(--slate-depth-3), 0) 60%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h4,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-4 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-4), 0.08) 0%,
+    rgba(var(--slate-depth-4), 0) 50%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h5,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-5 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-5), 0.06) 0%,
+    rgba(var(--slate-depth-5), 0) 42%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered h6,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header-6 {
+  background: linear-gradient(
+    90deg,
+    rgba(var(--slate-depth-6), 0.04) 0%,
+    rgba(var(--slate-depth-6), 0) 34%
+  );
+}
+
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  padding-inline: 0.4em;
+  margin-inline-start: -0.4em;
+  border-radius: var(--radius-s);
 }
 
 /* Fold arrows and the collapse indicator pick up the heading hue. */
@@ -1049,15 +1134,6 @@ input[type="range"]::-webkit-slider-thumb {
    way whether it is folders, bullets or quotes. Markers and rules are fills,
    not ink, so the light-ground contrast ceiling does not apply.
    ------------------------------------------------------------------------ */
-
-body {
-  --slate-depth-1: var(--sl-red-rgb);
-  --slate-depth-2: var(--sl-orange-rgb);
-  --slate-depth-3: var(--sl-green-rgb);
-  --slate-depth-4: var(--sl-teal-rgb);
-  --slate-depth-5: var(--sl-blue-rgb);
-  --slate-depth-6: var(--sl-purple-rgb);
-}
 
 /* The bullet is 0.3em by default, which leaves the hue almost no area to live
    in. It grows, and carries a halo of its own hue so the color reads from a
