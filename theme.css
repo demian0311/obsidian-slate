@@ -104,9 +104,6 @@ settings:
   --sl-cyan-rgb: 79, 150, 196;
   --sl-gray-rgb: 126, 138, 151;
 
-  /* text-safe yellow: the raw gold is too light to read on white */
-  --sl-yellow-text-rgb: 143, 116, 24;
-
   /* fills and washes */
   --sl-wash: 0.1;
   --sl-wash-strong: 0.18;
@@ -139,11 +136,9 @@ settings:
   --sl-cyan-rgb: 98, 176, 217;
   --sl-gray-rgb: 149, 161, 174;
 
-  --sl-yellow-text-rgb: 217, 189, 90;
-
   --sl-wash: 0.14;
   --sl-wash-strong: 0.24;
-  --sl-shadow-color: 0, 0, 0;
+  --sl-shadow-color: var(--sl-bg-rgb);
   --sl-shadow-strength: 0.4;
   color-scheme: dark;
 }
@@ -161,7 +156,6 @@ body {
   --sl-red: rgb(var(--sl-red-rgb));
   --sl-orange: rgb(var(--sl-orange-rgb));
   --sl-yellow: rgb(var(--sl-yellow-rgb));
-  --sl-yellow-text: rgb(var(--sl-yellow-text-rgb));
   --sl-green: rgb(var(--sl-green-rgb));
   --sl-blue: rgb(var(--sl-blue-rgb));
   --sl-purple: rgb(var(--sl-purple-rgb));
@@ -314,13 +308,14 @@ body {
   --text-normal: var(--sl-text);
   --text-muted: var(--sl-muted);
   --text-faint: rgba(var(--sl-muted-rgb), 0.62);
+  /* Slate's textOnFillLight, identical in both modes. */
   --text-on-accent: #ffffff;
   --text-on-accent-inverted: rgb(var(--sl-bg-rgb));
 
   --text-accent: var(--sl-primary);
   --text-accent-hover: var(--sl-cyan);
   --text-error: var(--sl-red);
-  --text-warning: var(--sl-yellow-text);
+  --text-warning: var(--sl-orange);
   --text-success: var(--sl-green);
 
   --text-selection: rgba(var(--sl-primary-rgb), 0.22);
@@ -377,11 +372,15 @@ body {
    5. Headings — the loudest part of the theme
    ------------------------------------------------------------------------ */
 
+/* A warm-to-cool sweep. Yellow is deliberately absent: at #c9a227 it lands at
+   2.4:1 on the light ground, well under the 3:1 floor for large text, and the
+   palette is used verbatim rather than darkened to compensate. Yellow keeps
+   its fill duties (highlight, canvas, plugin color slot) where it works. */
 body {
   --h1-color: var(--sl-red);
   --h2-color: var(--sl-orange);
-  --h3-color: var(--sl-yellow-text);
-  --h4-color: var(--sl-green);
+  --h3-color: var(--sl-green);
+  --h4-color: var(--sl-teal);
   --h5-color: var(--sl-blue);
   --h6-color: var(--sl-purple);
 }
@@ -569,21 +568,22 @@ body {
   --callout-radius: var(--radius-m);
   --callout-title-size: 1em;
 
+  /* Callout titles are ink, so yellow is out here too. */
   --callout-note: var(--sl-blue-rgb);
-  --callout-abstract: var(--sl-cyan-rgb);
-  --callout-summary: var(--sl-cyan-rgb);
-  --callout-tldr: var(--sl-cyan-rgb);
+  --callout-abstract: var(--sl-gray-rgb);
+  --callout-summary: var(--sl-gray-rgb);
+  --callout-tldr: var(--sl-gray-rgb);
   --callout-info: var(--sl-blue-rgb);
-  --callout-todo: var(--sl-teal-rgb);
+  --callout-todo: var(--sl-blue-rgb);
   --callout-tip: var(--sl-teal-rgb);
   --callout-hint: var(--sl-teal-rgb);
   --callout-important: var(--sl-teal-rgb);
   --callout-success: var(--sl-green-rgb);
   --callout-check: var(--sl-green-rgb);
   --callout-done: var(--sl-green-rgb);
-  --callout-question: var(--sl-yellow-rgb);
-  --callout-help: var(--sl-yellow-rgb);
-  --callout-faq: var(--sl-yellow-rgb);
+  --callout-question: var(--sl-cyan-rgb);
+  --callout-help: var(--sl-cyan-rgb);
+  --callout-faq: var(--sl-cyan-rgb);
   --callout-warning: var(--sl-orange-rgb);
   --callout-caution: var(--sl-orange-rgb);
   --callout-attention: var(--sl-orange-rgb);
@@ -642,8 +642,8 @@ body {
 input[data-task=">"]:checked,
 li[data-task=">"] > input:checked,
 li[data-task=">"] > p > input:checked {
-  --checkbox-color: var(--sl-cyan);
-  --checkbox-color-hover: var(--sl-cyan);
+  --checkbox-color: var(--sl-blue);
+  --checkbox-color-hover: var(--sl-blue);
 }
 
 input[data-task="!"]:checked,
@@ -653,11 +653,13 @@ li[data-task="!"] > p > input:checked {
   --checkbox-color-hover: var(--sl-orange);
 }
 
+/* Yellow is skipped here as well: the white check marker sits at 2.4:1 on a
+   #c9a227 fill, so the glyph disappears. */
 input[data-task="?"]:checked,
 li[data-task="?"] > input:checked,
 li[data-task="?"] > p > input:checked {
-  --checkbox-color: var(--sl-yellow);
-  --checkbox-color-hover: var(--sl-yellow);
+  --checkbox-color: var(--sl-cyan);
+  --checkbox-color-hover: var(--sl-cyan);
 }
 
 input[data-task="*"]:checked,
@@ -704,45 +706,45 @@ body {
 }
 
 /* CSS cannot hash a string, so the tag's first character selects the bucket.
-   Nine buckets across the spectrum, letters rotating a-i / j-r / s-z. */
+   Eight buckets, letters stepping through the spectrum and wrapping every
+   eighth. Yellow sits this one out — tag text is small ink on a light wash. */
 body:not(.slate-plain-tags) {
   --slate-tag-1: var(--sl-red-rgb);
   --slate-tag-2: var(--sl-orange-rgb);
-  --slate-tag-3: var(--sl-yellow-rgb);
-  --slate-tag-4: var(--sl-green-rgb);
-  --slate-tag-5: var(--sl-teal-rgb);
-  --slate-tag-6: var(--sl-cyan-rgb);
-  --slate-tag-7: var(--sl-blue-rgb);
-  --slate-tag-8: var(--sl-purple-rgb);
-  --slate-tag-9: var(--sl-gray-rgb);
+  --slate-tag-3: var(--sl-green-rgb);
+  --slate-tag-4: var(--sl-teal-rgb);
+  --slate-tag-5: var(--sl-cyan-rgb);
+  --slate-tag-6: var(--sl-blue-rgb);
+  --slate-tag-7: var(--sl-purple-rgb);
+  --slate-tag-8: var(--sl-gray-rgb);
 }
 
 body:not(.slate-plain-tags) a.tag[href^="#a" i],
-body:not(.slate-plain-tags) a.tag[href^="#j" i],
-body:not(.slate-plain-tags) a.tag[href^="#s" i] { --slate-tag: var(--slate-tag-1); }
-body:not(.slate-plain-tags) a.tag[href^="#b" i],
-body:not(.slate-plain-tags) a.tag[href^="#k" i],
-body:not(.slate-plain-tags) a.tag[href^="#t" i] { --slate-tag: var(--slate-tag-2); }
-body:not(.slate-plain-tags) a.tag[href^="#c" i],
-body:not(.slate-plain-tags) a.tag[href^="#l" i],
-body:not(.slate-plain-tags) a.tag[href^="#u" i] { --slate-tag: var(--slate-tag-3); }
-body:not(.slate-plain-tags) a.tag[href^="#d" i],
-body:not(.slate-plain-tags) a.tag[href^="#m" i],
-body:not(.slate-plain-tags) a.tag[href^="#v" i] { --slate-tag: var(--slate-tag-4); }
-body:not(.slate-plain-tags) a.tag[href^="#e" i],
-body:not(.slate-plain-tags) a.tag[href^="#n" i],
-body:not(.slate-plain-tags) a.tag[href^="#w" i] { --slate-tag: var(--slate-tag-5); }
-body:not(.slate-plain-tags) a.tag[href^="#f" i],
-body:not(.slate-plain-tags) a.tag[href^="#o" i],
-body:not(.slate-plain-tags) a.tag[href^="#x" i] { --slate-tag: var(--slate-tag-6); }
-body:not(.slate-plain-tags) a.tag[href^="#g" i],
-body:not(.slate-plain-tags) a.tag[href^="#p" i],
-body:not(.slate-plain-tags) a.tag[href^="#y" i] { --slate-tag: var(--slate-tag-7); }
-body:not(.slate-plain-tags) a.tag[href^="#h" i],
-body:not(.slate-plain-tags) a.tag[href^="#q" i],
-body:not(.slate-plain-tags) a.tag[href^="#z" i] { --slate-tag: var(--slate-tag-8); }
 body:not(.slate-plain-tags) a.tag[href^="#i" i],
+body:not(.slate-plain-tags) a.tag[href^="#q" i],
+body:not(.slate-plain-tags) a.tag[href^="#y" i] { --slate-tag: var(--slate-tag-1); }
+body:not(.slate-plain-tags) a.tag[href^="#b" i],
+body:not(.slate-plain-tags) a.tag[href^="#j" i],
 body:not(.slate-plain-tags) a.tag[href^="#r" i],
+body:not(.slate-plain-tags) a.tag[href^="#z" i] { --slate-tag: var(--slate-tag-2); }
+body:not(.slate-plain-tags) a.tag[href^="#c" i],
+body:not(.slate-plain-tags) a.tag[href^="#k" i],
+body:not(.slate-plain-tags) a.tag[href^="#s" i] { --slate-tag: var(--slate-tag-3); }
+body:not(.slate-plain-tags) a.tag[href^="#d" i],
+body:not(.slate-plain-tags) a.tag[href^="#l" i],
+body:not(.slate-plain-tags) a.tag[href^="#t" i] { --slate-tag: var(--slate-tag-4); }
+body:not(.slate-plain-tags) a.tag[href^="#e" i],
+body:not(.slate-plain-tags) a.tag[href^="#m" i],
+body:not(.slate-plain-tags) a.tag[href^="#u" i] { --slate-tag: var(--slate-tag-5); }
+body:not(.slate-plain-tags) a.tag[href^="#f" i],
+body:not(.slate-plain-tags) a.tag[href^="#n" i],
+body:not(.slate-plain-tags) a.tag[href^="#v" i] { --slate-tag: var(--slate-tag-6); }
+body:not(.slate-plain-tags) a.tag[href^="#g" i],
+body:not(.slate-plain-tags) a.tag[href^="#o" i],
+body:not(.slate-plain-tags) a.tag[href^="#w" i] { --slate-tag: var(--slate-tag-7); }
+body:not(.slate-plain-tags) a.tag[href^="#h" i],
+body:not(.slate-plain-tags) a.tag[href^="#p" i],
+body:not(.slate-plain-tags) a.tag[href^="#x" i],
 body:not(.slate-plain-tags) a.tag[href^="#0"],
 body:not(.slate-plain-tags) a.tag[href^="#1"],
 body:not(.slate-plain-tags) a.tag[href^="#2"],
@@ -752,7 +754,7 @@ body:not(.slate-plain-tags) a.tag[href^="#5"],
 body:not(.slate-plain-tags) a.tag[href^="#6"],
 body:not(.slate-plain-tags) a.tag[href^="#7"],
 body:not(.slate-plain-tags) a.tag[href^="#8"],
-body:not(.slate-plain-tags) a.tag[href^="#9"] { --slate-tag: var(--slate-tag-9); }
+body:not(.slate-plain-tags) a.tag[href^="#9"] { --slate-tag: var(--slate-tag-8); }
 
 body:not(.slate-plain-tags) a.tag[style],
 body:not(.slate-plain-tags) a.tag {
@@ -813,10 +815,10 @@ body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-
   --slate-depth: var(--sl-orange-rgb);
 }
 body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-yellow-rgb);
+  --slate-depth: var(--sl-green-rgb);
 }
 body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
-  --slate-depth: var(--sl-green-rgb);
+  --slate-depth: var(--sl-teal-rgb);
 }
 body:not(.slate-plain-folders) .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-children > .nav-folder > .nav-folder-title {
   --slate-depth: var(--sl-cyan-rgb);

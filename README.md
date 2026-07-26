@@ -37,28 +37,40 @@ each, not one set with opacity tricks.
 | Cyan | `#4f96c4` | `#62b0d9` |
 | Gray | `#7e8a97` | `#95a1ae` |
 
-In light mode the gold is too light to read as body-weight ink, so text roles
-use a darkened `#8f7418` while fills and washes keep the true `#c9a227`.
+**Every color in this theme is one of the thirty values above, verbatim.**
+Nothing is darkened, lightened or shifted to make a role work. Where a color
+doesn't work for a job, a different palette color takes the job.
+
+The one consequence: yellow never carries ink on the light ground. `#c9a227`
+lands at 2.4:1 on white, under the 3:1 floor even for large text, so it is
+absent from headings, tags, folder depths, callout titles and task markers.
+It keeps every job where it is a fill rather than a foreground — highlight
+background, canvas color 3, the `--color-yellow` slot plugins read.
+
+Opacity is used for washes, borders and hover states. That is compositing a
+palette color against a palette background, not a new value.
 
 ## What is colored
 
-- **Headings** — H1–H6 walk red → orange → gold → green → blue → purple. H1
-  gets a red underline; the rest carry hue alone. The outline pane mirrors the
-  ladder.
+- **Headings** — H1–H6 walk red → orange → green → teal → blue → purple, warm
+  to cool. H1 gets a red underline; the rest carry hue alone. The outline pane
+  mirrors the ladder.
 - **Callouts** — every built-in type maps to a spectrum hue: note/info blue,
-  tip/todo teal, success green, question gold, warning orange, failure/danger
-  red, example purple, quote gray.
-- **Tags** — hued by first character across nine buckets (`a`/`j`/`s` → red,
-  `b`/`k`/`t` → orange, and so on). CSS can't hash a string, so this is the
-  closest deterministic approximation. Live preview has no tag name in the DOM,
-  so tags there take the teal accent pill.
-- **Folders** — file-explorer folders tint by nesting depth, six levels deep,
+  note/info/todo blue, tip teal, success green, question cyan, warning orange,
+  failure/danger red, example purple, summary/quote gray.
+- **Tags** — hued by first character across eight buckets, stepping through the
+  spectrum and wrapping every eighth letter (`a`/`i`/`q`/`y` → red, `b`/`j`/`r`
+  /`z` → orange, and so on; digits → gray). CSS can't hash a string, so this is
+  the closest deterministic approximation. Live preview has no tag name in the
+  DOM, so tags there take the teal accent pill.
+- **Folders** — file-explorer folders tint by nesting depth on the same
+  red → orange → green → teal → cyan → purple ladder, six levels deep,
   with a matching left rule on the children container. Files stay neutral so
   the hues carry structure, not noise.
 - **Syntax** — keywords red, strings green, functions purple, properties cyan,
   values teal, operators orange. Inline code is purple ink on a purple wash;
   fenced blocks sit on the neutral panel with a purple spine.
-- **Tasks** — `[>]` cyan, `[!]` orange, `[?]` gold, `[*]` purple, `[-]` red and
+- **Tasks** — `[>]` blue, `[!]` orange, `[?]` cyan, `[*]` purple, `[-]` red and
   struck through. Only a real `[x]` dims.
 - **Graph & canvas** — nodes blue, focused orange, tags teal, attachments
   purple, unresolved red. Canvas colors 1–6 map to the spectrum.
