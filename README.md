@@ -64,7 +64,7 @@ palette color against a palette background, not a new value.
   the closest deterministic approximation. Live preview has no tag name in the
   DOM, so tags there take the teal accent pill.
 - **Folders** — file-explorer folders tint by nesting depth on the same
-  red → orange → green → teal → cyan → purple ladder, six levels deep,
+  red → orange → green → teal → blue → purple ladder, six levels deep,
   with a matching left rule on the children container. Files inherit their
   folder's hue at reduced strength, so each subtree reads as one block of
   color while the folder still leads on weight. Files at the vault root fall
@@ -77,17 +77,24 @@ palette color against a palette background, not a new value.
 - **Graph & canvas** — nodes blue, focused orange, tags teal, attachments
   purple, unresolved red. Canvas colors 1–6 map to the spectrum.
 - **Nesting** — list bullets, nested blockquotes and live-preview indentation
-  guides all walk the same six-step ladder the file explorer uses, so depth
-  reads identically whichever structure you are looking at.
+  guides all walk the same six-step ladder the file explorer and the headings
+  use, so depth reads identically whichever structure you are looking at.
+  Reading view gets the full ladder; live preview only colors the indentation
+  guides, since CodeMirror encodes list and quote depth in inline padding
+  rather than in a class a stylesheet can select on.
 - **Links by target** — note links blue, heading links cyan, block references
   purple, attachments and canvases teal, external purple, unresolved red.
-- **Inline detail** — inline title blue, math teal (errors red), footnote refs
+- **Inline detail** — inline title blue, math teal, footnote refs
   and backrefs teal, block IDs purple, markdown comments gray italic, active
   line number blue, fold arrows orange, matching brackets teal.
 - **Workspace** — tab and sidebar icons take a hue per view type: markdown
   blue, canvas purple, PDF red, media green, graph teal, bases and explorer
   orange, search cyan, bookmarks red, outline green, backlinks purple. Result
   counts render as tinted pills.
+
+The ladder used for headings, folder depth, list depth and quote depth is one
+sequence: **red → orange → green → teal → blue → purple**. Yellow, cyan and
+gray sit outside it and carry other jobs.
 
 ## Typography
 
