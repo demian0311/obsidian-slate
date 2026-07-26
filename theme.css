@@ -216,7 +216,7 @@ body {
   --h6-line-height: 1.4;
 
   --h1-variant: normal;
-  --h6-variant: small-caps;
+  --h6-variant: normal;
 
   --code-size: 0.875em;
   --font-adaptive-normal: 16px;
@@ -247,11 +247,6 @@ body.slate-sans-body {
 .HyperMD-header {
   letter-spacing: -0.018em;
   font-family: var(--font-interface-theme);
-}
-
-.markdown-rendered h6,
-.HyperMD-header-6 {
-  letter-spacing: 0.06em;
 }
 
 /* ---------------------------------------------------------------------------
