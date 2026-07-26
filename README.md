@@ -96,6 +96,12 @@ palette color against a palette background, not a new value.
   blue, canvas purple, PDF red, media green, graph teal, bases and explorer
   orange, search cyan, bookmarks red, outline green, backlinks purple. Result
   counts render as tinted pills.
+- **Chrome** — every `.clickable-icon` in the app shares one state ladder:
+  muted idle, primary on hover, accent when active. The ribbon rail sits a step
+  quieter. Tab close goes red on hover, the pane drop target primary, context
+  menu items primary on hover and red when destructive. Tooltips and toasts sit
+  on the overlay surface, the settings nav and plugin browser take the primary,
+  and empty panes get a primary call to action.
 
 The ladder used for headings, folder depth, list depth and quote depth is one
 sequence: **red → orange → green → teal → blue → purple**. Yellow, cyan and

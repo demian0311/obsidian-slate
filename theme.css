@@ -1440,6 +1440,187 @@ body {
   color: var(--sl-primary);
 }
 
+/* ---------------------------------------------------------------------------
+   19. Chrome: rail, icons, menus, modals, search
+
+   Every selector below was checked against Obsidian's own stylesheet rather
+   than assumed. .clickable-icon is the widest lever in the app — toolbars,
+   view actions, note header buttons, pane controls and the ribbon rail all
+   resolve to it — so its state ladder is set once and inherited everywhere.
+   ------------------------------------------------------------------------ */
+
+.clickable-icon {
+  color: var(--sl-muted);
+}
+
+.clickable-icon:hover {
+  color: var(--sl-primary);
+  background-color: rgba(var(--sl-primary-rgb), 0.1);
+}
+
+.clickable-icon.is-active,
+.clickable-icon.has-active-menu {
+  color: var(--sl-accent);
+  background-color: rgba(var(--sl-accent-rgb), var(--sl-wash));
+}
+
+.clickable-icon.is-active:hover {
+  color: var(--sl-accent);
+  background-color: rgba(var(--sl-accent-rgb), var(--sl-wash-strong));
+}
+
+.clickable-icon.mod-warning {
+  color: var(--sl-red);
+}
+
+/* The ribbon rail reads one step quieter than the panes it opens. */
+.side-dock-ribbon-action {
+  color: rgba(var(--sl-muted-rgb), 0.8);
+}
+
+.side-dock-ribbon-action:hover {
+  color: var(--sl-primary);
+}
+
+.side-dock-ribbon-action.is-active {
+  color: var(--sl-accent);
+}
+
+/* Closing a tab is destructive enough to warrant the red. */
+.workspace-tab-header-inner-close-button:hover {
+  color: var(--sl-red);
+  background-color: rgba(var(--sl-red-rgb), var(--sl-wash));
+}
+
+/* Dragging a pane: the drop target takes the primary. */
+.workspace-drop-overlay::before {
+  background-color: rgba(var(--sl-primary-rgb), 0.14);
+  border: 2px solid rgba(var(--sl-primary-rgb), 0.5);
+  border-radius: var(--radius-m);
+}
+
+/* Context menus. */
+.menu-item-icon {
+  color: var(--sl-muted);
+}
+
+.menu-item:hover .menu-item-icon,
+.menu-item:hover .menu-item-title {
+  color: var(--sl-primary);
+}
+
+.menu-item.is-warning .menu-item-icon,
+.menu-item.is-warning .menu-item-title {
+  color: var(--sl-red);
+}
+
+.menu-item.is-warning:hover {
+  background-color: rgba(var(--sl-red-rgb), var(--sl-wash));
+}
+
+.menu-item.is-label {
+  color: var(--text-faint);
+}
+
+/* Tooltips and toasts sit on the overlay surface, not a bespoke gray. */
+.tooltip {
+  background-color: var(--sl-overlay);
+  color: var(--sl-text);
+  border: 1px solid var(--sl-border);
+  border-radius: var(--radius-s);
+}
+
+.tooltip.mod-error {
+  background-color: rgba(var(--sl-red-rgb), var(--sl-wash-strong));
+  color: var(--sl-red);
+  border-color: rgba(var(--sl-red-rgb), 0.4);
+}
+
+.notice {
+  background-color: var(--sl-overlay);
+  color: var(--sl-text);
+  border-left: 3px solid var(--sl-accent);
+}
+
+/* Command palette hotkey hints. */
+.prompt-instruction-command {
+  color: var(--sl-primary);
+  font-weight: 600;
+}
+
+.prompt-instruction {
+  color: var(--text-faint);
+}
+
+/* Settings and the plugin/theme browser. */
+.vertical-tab-header-group-title {
+  color: var(--sl-accent);
+  font-weight: 650;
+}
+
+.vertical-tab-nav-item:hover {
+  color: var(--sl-primary);
+  background-color: rgba(var(--sl-primary-rgb), 0.09);
+}
+
+.vertical-tab-nav-item.is-active {
+  color: var(--sl-primary);
+  background-color: rgba(var(--sl-primary-rgb), 0.14);
+  font-weight: 600;
+}
+
+.vertical-tab-header-title {
+  color: var(--sl-text);
+}
+
+.setting-item-name {
+  color: var(--sl-text);
+  font-weight: 600;
+}
+
+.community-item-name {
+  color: var(--sl-primary);
+  font-weight: 650;
+}
+
+.community-item-author {
+  color: var(--text-muted);
+}
+
+.community-item-downloads-text {
+  color: var(--sl-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.community-item-badge.mod-update {
+  background-color: rgba(var(--sl-orange-rgb), var(--sl-wash-strong));
+  color: var(--sl-orange);
+}
+
+/* Search input and its toggles. */
+.search-input-container input:focus {
+  border-color: var(--sl-primary);
+  box-shadow: 0 0 0 2px rgba(var(--sl-primary-rgb), 0.18);
+}
+
+.search-input-clear-button:hover {
+  color: var(--sl-red);
+}
+
+/* Empty panes: present, not apologetic. */
+.empty-state-title {
+  color: var(--sl-muted);
+}
+
+.empty-state-action {
+  color: var(--sl-primary);
+}
+
+.empty-state-action:hover {
+  color: var(--sl-cyan);
+  text-decoration: underline;
+}
+
 /* Print / export stays on the light ground regardless of app theme. */
 @media print {
   body {
