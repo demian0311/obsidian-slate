@@ -96,9 +96,12 @@ palette color against a palette background, not a new value.
   blue, canvas purple, PDF red, media green, graph teal, bases and explorer
   orange, search cyan, bookmarks red, outline green, backlinks purple. Result
   counts render as tinted pills.
-- **Chrome** — every `.clickable-icon` in the app shares one state ladder:
-  muted idle, primary on hover, accent when active. The ribbon rail sits a step
-  quieter. Tab close goes red on hover, the pane drop target primary, context
+- **Chrome** — the ribbon rail and pane action icons take a hue by position,
+  rotating through the spectrum and wrapping every eighth, so a rail of any
+  length stays evenly spread. There is no attribute saying what a ribbon button
+  does — the label is plugin-supplied and localized — so position is the only
+  stable key. Every other `.clickable-icon` shares one state ladder: muted
+  idle, primary on hover, accent when active. Tab close goes red on hover, the pane drop target primary, context
   menu items primary on hover and red when destructive. Tooltips and toasts sit
   on the overlay surface, the settings nav and plugin browser take the primary,
   and empty panes get a primary call to action.

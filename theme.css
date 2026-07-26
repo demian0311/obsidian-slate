@@ -190,6 +190,18 @@ body {
   --slate-depth-4: var(--sl-teal-rgb);
   --slate-depth-5: var(--sl-blue-rgb);
   --slate-depth-6: var(--sl-purple-rgb);
+
+  /* The rotation: the full spectrum minus yellow, used wherever a set of peers
+     needs distinct hues with no inherent order — tags by name, icons by
+     position. Eight steps so it wraps cleanly on 8n+k. */
+  --slate-rot-1: var(--sl-red-rgb);
+  --slate-rot-2: var(--sl-orange-rgb);
+  --slate-rot-3: var(--sl-green-rgb);
+  --slate-rot-4: var(--sl-teal-rgb);
+  --slate-rot-5: var(--sl-cyan-rgb);
+  --slate-rot-6: var(--sl-blue-rgb);
+  --slate-rot-7: var(--sl-purple-rgb);
+  --slate-rot-8: var(--sl-gray-rgb);
 }
 
 /* ---------------------------------------------------------------------------
@@ -783,14 +795,14 @@ body {
    Eight buckets, letters stepping through the spectrum and wrapping every
    eighth. Yellow sits this one out — tag text is small ink on a light wash. */
 body:not(.slate-plain-tags) {
-  --slate-tag-1: var(--sl-red-rgb);
-  --slate-tag-2: var(--sl-orange-rgb);
-  --slate-tag-3: var(--sl-green-rgb);
-  --slate-tag-4: var(--sl-teal-rgb);
-  --slate-tag-5: var(--sl-cyan-rgb);
-  --slate-tag-6: var(--sl-blue-rgb);
-  --slate-tag-7: var(--sl-purple-rgb);
-  --slate-tag-8: var(--sl-gray-rgb);
+  --slate-tag-1: var(--slate-rot-1);
+  --slate-tag-2: var(--slate-rot-2);
+  --slate-tag-3: var(--slate-rot-3);
+  --slate-tag-4: var(--slate-rot-4);
+  --slate-tag-5: var(--slate-rot-5);
+  --slate-tag-6: var(--slate-rot-6);
+  --slate-tag-7: var(--slate-rot-7);
+  --slate-tag-8: var(--slate-rot-8);
 }
 
 body:not(.slate-plain-tags) a.tag[href^="#a" i],
@@ -1511,17 +1523,77 @@ body {
   color: var(--sl-red);
 }
 
-/* The ribbon rail reads one step quieter than the panes it opens. */
-.side-dock-ribbon-action {
-  color: rgba(var(--sl-muted-rgb), 0.8);
+/* Rail and pane-action icons take a hue by position. There is no attribute on
+   a ribbon button that says what it does — the label is plugin-supplied and
+   localized — so position is the only stable key available. 8n+k wraps, so a
+   rail of any length stays evenly spread across the rotation. */
+
+.side-dock-ribbon-action:nth-of-type(8n+1),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+1),
+.view-actions .clickable-icon:nth-of-type(8n+1) {
+  --slate-icon: var(--slate-rot-1);
 }
 
-.side-dock-ribbon-action:hover {
-  color: var(--sl-primary);
+.side-dock-ribbon-action:nth-of-type(8n+2),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+2),
+.view-actions .clickable-icon:nth-of-type(8n+2) {
+  --slate-icon: var(--slate-rot-2);
 }
 
-.side-dock-ribbon-action.is-active {
-  color: var(--sl-accent);
+.side-dock-ribbon-action:nth-of-type(8n+3),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+3),
+.view-actions .clickable-icon:nth-of-type(8n+3) {
+  --slate-icon: var(--slate-rot-3);
+}
+
+.side-dock-ribbon-action:nth-of-type(8n+4),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+4),
+.view-actions .clickable-icon:nth-of-type(8n+4) {
+  --slate-icon: var(--slate-rot-4);
+}
+
+.side-dock-ribbon-action:nth-of-type(8n+5),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+5),
+.view-actions .clickable-icon:nth-of-type(8n+5) {
+  --slate-icon: var(--slate-rot-5);
+}
+
+.side-dock-ribbon-action:nth-of-type(8n+6),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+6),
+.view-actions .clickable-icon:nth-of-type(8n+6) {
+  --slate-icon: var(--slate-rot-6);
+}
+
+.side-dock-ribbon-action:nth-of-type(8n+7),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+7),
+.view-actions .clickable-icon:nth-of-type(8n+7) {
+  --slate-icon: var(--slate-rot-7);
+}
+
+.side-dock-ribbon-action:nth-of-type(8n+8),
+.nav-buttons-container .clickable-icon:nth-of-type(8n+8),
+.view-actions .clickable-icon:nth-of-type(8n+8) {
+  --slate-icon: var(--slate-rot-8);
+}
+
+.side-dock-ribbon-action,
+.nav-buttons-container .clickable-icon,
+.view-actions .clickable-icon {
+  color: rgba(var(--slate-icon, var(--sl-muted-rgb)), 0.9);
+}
+
+.side-dock-ribbon-action:hover,
+.nav-buttons-container .clickable-icon:hover,
+.view-actions .clickable-icon:hover {
+  color: rgb(var(--slate-icon, var(--sl-primary-rgb)));
+  background-color: rgba(var(--slate-icon, var(--sl-primary-rgb)), var(--sl-wash));
+}
+
+.side-dock-ribbon-action.is-active,
+.nav-buttons-container .clickable-icon.is-active,
+.view-actions .clickable-icon.is-active {
+  color: rgb(var(--slate-icon, var(--sl-accent-rgb)));
+  background-color: rgba(var(--slate-icon, var(--sl-accent-rgb)), var(--sl-wash-strong));
 }
 
 /* Closing a tab is destructive enough to warrant the red. */
