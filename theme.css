@@ -838,7 +838,7 @@ body:not(.slate-plain-folders) .nav-folder .nav-folder .nav-folder .nav-folder .
 
 body:not(.slate-plain-folders) .nav-folder-title {
   color: rgb(var(--slate-depth, var(--sl-muted-rgb)));
-  font-weight: 550;
+  font-weight: 600;
 }
 
 body:not(.slate-plain-folders) .nav-folder-title .collapse-icon svg {
@@ -855,12 +855,30 @@ body:not(.slate-plain-folders) .nav-folder .nav-folder-children {
   border-left: 1px solid rgba(var(--slate-depth, var(--sl-gray-rgb)), 0.3);
 }
 
-/* Files stay neutral so the folder hues do the structural work. */
-.nav-file-title {
+/* Files inherit their folder's hue at reduced strength, so a subtree reads as
+   one block of color. The folder still leads: full strength and heavier. Files
+   sitting at the vault root inherit nothing and fall back to the muted ink. */
+body:not(.slate-plain-folders) .nav-file-title {
+  color: rgba(var(--slate-depth, var(--sl-muted-rgb)), 0.75);
+  font-weight: 400;
+}
+
+body:not(.slate-plain-folders) .nav-file-title:hover,
+body:not(.slate-plain-folders) .nav-file-title.is-active,
+body:not(.slate-plain-folders) .nav-file-title.has-focus {
+  color: rgb(var(--slate-depth, var(--sl-text-rgb)));
+}
+
+body:not(.slate-plain-folders) .nav-file-title.is-active {
+  background: rgba(var(--slate-depth, var(--sl-primary-rgb)), 0.14);
+  font-weight: 600;
+}
+
+body.slate-plain-folders .nav-file-title {
   color: var(--nav-item-color);
 }
 
-.nav-file-title.is-active .nav-file-title-content {
+body.slate-plain-folders .nav-file-title.is-active .nav-file-title-content {
   color: var(--sl-primary);
 }
 

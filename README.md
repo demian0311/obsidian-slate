@@ -65,8 +65,10 @@ palette color against a palette background, not a new value.
   DOM, so tags there take the teal accent pill.
 - **Folders** — file-explorer folders tint by nesting depth on the same
   red → orange → green → teal → cyan → purple ladder, six levels deep,
-  with a matching left rule on the children container. Files stay neutral so
-  the hues carry structure, not noise.
+  with a matching left rule on the children container. Files inherit their
+  folder's hue at reduced strength, so each subtree reads as one block of
+  color while the folder still leads on weight. Files at the vault root fall
+  back to the muted ink.
 - **Syntax** — keywords red, strings green, functions purple, properties cyan,
   values teal, operators orange. Inline code is purple ink on a purple wash;
   fenced blocks sit on the neutral panel with a purple spine.
