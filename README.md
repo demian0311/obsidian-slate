@@ -12,6 +12,8 @@ states, graph nodes and canvas all carry hue, and none of it fights.
 Light and dark are both first-class — the palette ships distinct values for
 each, not one set with opacity tricks.
 
+![Diagrammo Slate in light and dark](screenshot.png)
+
 ## Palette
 
 | Role | Light | Dark |

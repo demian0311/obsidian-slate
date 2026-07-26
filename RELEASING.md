@@ -27,6 +27,12 @@ running Obsidian.
   ground — but consider a second dark shot in the README
 - Save as `screenshot.png` at the repo root
 
+The current one is a composite: light and dark captured at identical framing,
+each cropped to its window shadow, flattened onto its own mode's background so
+the shadow reads naturally, and joined with a hairline divider. The sources are
+kept in `docs/`. To regenerate after re-capturing, see the compositing step in
+the commit that added it.
+
 ## Cutting a release
 
 ```sh
@@ -69,7 +75,7 @@ least one round of comments.
 
 ## Before submitting
 
-- [ ] `screenshot.png` at repo root
+- [x] `screenshot.png` at repo root
 - [ ] Release tag matches `manifest.json` version exactly
 - [ ] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
