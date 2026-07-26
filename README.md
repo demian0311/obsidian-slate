@@ -81,7 +81,9 @@ palette color against a palette background, not a new value.
   use, so depth reads identically whichever structure you are looking at.
   Both reading view and live preview get the full ladder — live preview list
   lines and quote lines carry their depth as a class, and indentation guides
-  are colored per level on top of that.
+  are colored per level on top of that. Bullets run at `0.5em` with a halo of
+  their own hue at 18%, since the stock `0.3em` dot is too small to carry a
+  color.
 - **Links by target** — note links blue, heading links cyan, block references
   purple, attachments and canvases teal, external purple, unresolved red.
 - **Inline detail** — inline title blue, math teal, footnote refs

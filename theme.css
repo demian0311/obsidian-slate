@@ -635,6 +635,7 @@ body {
   --list-marker-color-hover: var(--sl-cyan);
   --list-marker-color-collapsed: var(--sl-orange);
   --list-indent: 1.6em;
+  --list-bullet-size: 0.5em;
 }
 
 /* Extended task states. Each glyph carries its own hue so a task board of
@@ -1058,10 +1059,20 @@ body {
   --slate-depth-6: var(--sl-purple-rgb);
 }
 
+/* The bullet is 0.3em by default, which leaves the hue almost no area to live
+   in. It grows, and carries a halo of its own hue so the color reads from a
+   distance without the dot itself becoming heavy. --slate-marker holds the
+   level's triplet because box-shadow needs the components, not a color. */
+.markdown-rendered .list-bullet::after,
+.markdown-source-view.mod-cm6 .list-bullet::after {
+  box-shadow: 0 0 0 3px rgba(var(--slate-marker, var(--sl-gray-rgb)), 0.18);
+}
+
 /* Reading view: nesting is real DOM nesting, so the cascade does the work. */
 .markdown-rendered ul,
 .markdown-rendered ol {
   --list-marker-color: rgb(var(--slate-depth-1));
+  --slate-marker: var(--slate-depth-1);
   --list-marker-color-collapsed: rgb(var(--slate-depth-1));
 }
 .markdown-rendered ul ul,
@@ -1069,6 +1080,7 @@ body {
 .markdown-rendered ol ul,
 .markdown-rendered ol ol {
   --list-marker-color: rgb(var(--slate-depth-2));
+  --slate-marker: var(--slate-depth-2);
   --list-marker-color-collapsed: rgb(var(--slate-depth-2));
 }
 .markdown-rendered ul ul ul,
@@ -1076,21 +1088,25 @@ body {
 .markdown-rendered ul ol ul,
 .markdown-rendered ol ul ol {
   --list-marker-color: rgb(var(--slate-depth-3));
+  --slate-marker: var(--slate-depth-3);
   --list-marker-color-collapsed: rgb(var(--slate-depth-3));
 }
 .markdown-rendered ul ul ul ul,
 .markdown-rendered ol ol ol ol {
   --list-marker-color: rgb(var(--slate-depth-4));
+  --slate-marker: var(--slate-depth-4);
   --list-marker-color-collapsed: rgb(var(--slate-depth-4));
 }
 .markdown-rendered ul ul ul ul ul,
 .markdown-rendered ol ol ol ol ol {
   --list-marker-color: rgb(var(--slate-depth-5));
+  --slate-marker: var(--slate-depth-5);
   --list-marker-color-collapsed: rgb(var(--slate-depth-5));
 }
 .markdown-rendered ul ul ul ul ul ul,
 .markdown-rendered ol ol ol ol ol ol {
   --list-marker-color: rgb(var(--slate-depth-6));
+  --slate-marker: var(--slate-depth-6);
   --list-marker-color-collapsed: rgb(var(--slate-depth-6));
 }
 
@@ -1100,26 +1116,32 @@ body {
    but present in the DOM — do not conclude it is unavailable from app.css.) */
 .markdown-source-view.mod-cm6 .HyperMD-list-line-1 {
   --list-marker-color: rgb(var(--slate-depth-1));
+  --slate-marker: var(--slate-depth-1);
   --list-marker-color-hover: rgb(var(--slate-depth-1));
 }
 .markdown-source-view.mod-cm6 .HyperMD-list-line-2 {
   --list-marker-color: rgb(var(--slate-depth-2));
+  --slate-marker: var(--slate-depth-2);
   --list-marker-color-hover: rgb(var(--slate-depth-2));
 }
 .markdown-source-view.mod-cm6 .HyperMD-list-line-3 {
   --list-marker-color: rgb(var(--slate-depth-3));
+  --slate-marker: var(--slate-depth-3);
   --list-marker-color-hover: rgb(var(--slate-depth-3));
 }
 .markdown-source-view.mod-cm6 .HyperMD-list-line-4 {
   --list-marker-color: rgb(var(--slate-depth-4));
+  --slate-marker: var(--slate-depth-4);
   --list-marker-color-hover: rgb(var(--slate-depth-4));
 }
 .markdown-source-view.mod-cm6 .HyperMD-list-line-5 {
   --list-marker-color: rgb(var(--slate-depth-5));
+  --slate-marker: var(--slate-depth-5);
   --list-marker-color-hover: rgb(var(--slate-depth-5));
 }
 .markdown-source-view.mod-cm6 .HyperMD-list-line-6 {
   --list-marker-color: rgb(var(--slate-depth-6));
+  --slate-marker: var(--slate-depth-6);
   --list-marker-color-hover: rgb(var(--slate-depth-6));
 }
 
