@@ -449,11 +449,12 @@ body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header {
   padding-top: 0.12em;
   padding-bottom: 0.12em;
+  padding-left: 0.6em;
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
-  padding: 0.04em 0.4em;
-  margin-inline-start: -0.4em;
+  padding: 0.12em 0.6em;
+  margin-inline-start: -0.6em;
 }
 
 /* Fold arrows and the collapse indicator pick up the heading hue. */
