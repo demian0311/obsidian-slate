@@ -449,8 +449,8 @@ body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
-  padding: 0.18em 0.5em;
-  margin-inline-start: -0.5em;
+  padding: 0.04em 0.4em;
+  margin-inline-start: -0.4em;
 }
 
 /* Fold arrows and the collapse indicator pick up the heading hue. */
