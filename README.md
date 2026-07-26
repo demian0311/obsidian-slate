@@ -107,6 +107,19 @@ The ladder used for headings, folder depth, list depth and quote depth is one
 sequence: **red → orange → green → teal → blue → purple**. Yellow, cyan and
 gray sit outside it and carry other jobs.
 
+## Opinions
+
+The theme takes a few positions beyond color, each reversible from Style
+Settings:
+
+- **The note's name appears once**, on its tab. Obsidian states it three times
+  by default — tab, view header, inline title — before a word of content
+  appears. The view header keeps its nav buttons and actions; only the title
+  and its breadcrumb chain go.
+- **No small caps**, anywhere.
+- **No heading underlines.** Level is already carried by hue, wash strength and
+  type size.
+
 ## Typography
 
 System fonts only — nothing is downloaded.
@@ -142,7 +155,9 @@ The theme ships a [Style Settings](https://github.com/mgmeyers/obsidian-style-se
 block. Everything colorful is **on by default** and the toggles turn things
 *off*, so the theme looks the same with or without the plugin installed:
 
-- Show folder breadcrumbs — restore the folder path above the note title
+- Show note title in the view header — restore the name next to the nav buttons
+- Show inline title — restore the large note name atop the note body
+- Show folder breadcrumbs — restore the folder path (needs the header title)
 - Plain headings — drop the H1–H6 spectrum ladder
 - No heading tint — drop the block wash behind headings
 - Plain folders — neutral file explorer

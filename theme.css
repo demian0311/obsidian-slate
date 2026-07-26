@@ -56,9 +56,21 @@ settings:
     type: class-toggle
     default: false
   -
+    id: slate-show-view-header-title
+    title: Show note title in the view header
+    description: Restore the note name above the note, next to the nav buttons.
+    type: class-toggle
+    default: false
+  -
+    id: slate-show-inline-title
+    title: Show inline title
+    description: Restore the large note name at the top of the note body.
+    type: class-toggle
+    default: false
+  -
     id: slate-show-breadcrumbs
     title: Show folder breadcrumbs
-    description: Restore the truncated folder path above the note title.
+    description: Restore the truncated folder path (needs the view header title).
     type: class-toggle
     default: false
   -
@@ -1048,10 +1060,23 @@ body {
   color: var(--sl-text);
 }
 
-/* The view header's breadcrumb chain truncates every folder to a few
-   characters once a note is more than two deep, so it reads as noise rather
-   than navigation. Hidden by default; the note title itself stays. */
+/* The note's name is on its tab. Repeating it in the view header and again as
+   an inline title states it three times before a word of content. Both copies
+   are hidden by default; the tab keeps the identity, and the view header keeps
+   its nav buttons and actions. Toggles restore either one.
+
+   The breadcrumb chain goes with the header title. Obsidian truncates every
+   folder to a few characters once a note is more than two deep, so it reads as
+   noise rather than navigation. */
+body:not(.slate-show-view-header-title) .view-header-title-container {
+  display: none;
+}
+
 body:not(.slate-show-breadcrumbs) .view-header-title-parent {
+  display: none;
+}
+
+body:not(.slate-show-inline-title) .inline-title {
   display: none;
 }
 
