@@ -74,6 +74,18 @@ palette color against a palette background, not a new value.
   struck through. Only a real `[x]` dims.
 - **Graph & canvas** — nodes blue, focused orange, tags teal, attachments
   purple, unresolved red. Canvas colors 1–6 map to the spectrum.
+- **Nesting** — list bullets, nested blockquotes and live-preview indentation
+  guides all walk the same six-step ladder the file explorer uses, so depth
+  reads identically whichever structure you are looking at.
+- **Links by target** — note links blue, heading links cyan, block references
+  purple, attachments and canvases teal, external purple, unresolved red.
+- **Inline detail** — inline title blue, math teal (errors red), footnote refs
+  and backrefs teal, block IDs purple, markdown comments gray italic, active
+  line number blue, fold arrows orange, matching brackets teal.
+- **Workspace** — tab and sidebar icons take a hue per view type: markdown
+  blue, canvas purple, PDF red, media green, graph teal, bases and explorer
+  orange, search cyan, bookmarks red, outline green, backlinks purple. Result
+  counts render as tinted pills.
 
 ## Typography
 

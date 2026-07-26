@@ -1013,6 +1013,335 @@ input[type="range"]::-webkit-slider-thumb {
   background: var(--text-selection);
 }
 
+/* ---------------------------------------------------------------------------
+   16. Depth ladders — lists, quotes, indentation
+
+   The same six-step ladder the file explorer uses, so nesting reads the same
+   way whether it is folders, bullets or quotes. Markers and rules are fills,
+   not ink, so the light-ground contrast ceiling does not apply.
+   ------------------------------------------------------------------------ */
+
+body {
+  --slate-depth-1: var(--sl-red-rgb);
+  --slate-depth-2: var(--sl-orange-rgb);
+  --slate-depth-3: var(--sl-green-rgb);
+  --slate-depth-4: var(--sl-teal-rgb);
+  --slate-depth-5: var(--sl-cyan-rgb);
+  --slate-depth-6: var(--sl-purple-rgb);
+}
+
+/* Reading view: nesting is real DOM nesting, so the cascade does the work. */
+.markdown-rendered ul,
+.markdown-rendered ol {
+  --list-marker-color: rgb(var(--slate-depth-1));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-1));
+}
+.markdown-rendered ul ul,
+.markdown-rendered ul ol,
+.markdown-rendered ol ul,
+.markdown-rendered ol ol {
+  --list-marker-color: rgb(var(--slate-depth-2));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-2));
+}
+.markdown-rendered ul ul ul,
+.markdown-rendered ol ol ol,
+.markdown-rendered ul ol ul,
+.markdown-rendered ol ul ol {
+  --list-marker-color: rgb(var(--slate-depth-3));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-3));
+}
+.markdown-rendered ul ul ul ul,
+.markdown-rendered ol ol ol ol {
+  --list-marker-color: rgb(var(--slate-depth-4));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-4));
+}
+.markdown-rendered ul ul ul ul ul,
+.markdown-rendered ol ol ol ol ol {
+  --list-marker-color: rgb(var(--slate-depth-5));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-5));
+}
+.markdown-rendered ul ul ul ul ul ul,
+.markdown-rendered ol ol ol ol ol ol {
+  --list-marker-color: rgb(var(--slate-depth-6));
+  --list-marker-color-collapsed: rgb(var(--slate-depth-6));
+}
+
+/* Live preview: lines are siblings, not nested, so depth arrives as a class.
+   Setting the vars on the line also tints that line's indentation guides. */
+.markdown-source-view.mod-cm6 .HyperMD-list-line-1 {
+  --list-marker-color: rgb(var(--slate-depth-1));
+  --indentation-guide-color: rgba(var(--slate-depth-1), 0.3);
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-2 {
+  --list-marker-color: rgb(var(--slate-depth-2));
+  --indentation-guide-color: rgba(var(--slate-depth-2), 0.3);
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-3 {
+  --list-marker-color: rgb(var(--slate-depth-3));
+  --indentation-guide-color: rgba(var(--slate-depth-3), 0.3);
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-4 {
+  --list-marker-color: rgb(var(--slate-depth-4));
+  --indentation-guide-color: rgba(var(--slate-depth-4), 0.3);
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-5 {
+  --list-marker-color: rgb(var(--slate-depth-5));
+  --indentation-guide-color: rgba(var(--slate-depth-5), 0.3);
+}
+.markdown-source-view.mod-cm6 .HyperMD-list-line-6 {
+  --list-marker-color: rgb(var(--slate-depth-6));
+  --indentation-guide-color: rgba(var(--slate-depth-6), 0.3);
+}
+
+/* Nested quotes cycle the same ladder on the border and the wash. */
+.markdown-rendered blockquote {
+  --blockquote-border-color: rgb(var(--slate-depth-1));
+  --blockquote-background-color: rgba(var(--slate-depth-1), 0.06);
+}
+.markdown-rendered blockquote blockquote {
+  --blockquote-border-color: rgb(var(--slate-depth-2));
+  --blockquote-background-color: rgba(var(--slate-depth-2), 0.06);
+}
+.markdown-rendered blockquote blockquote blockquote {
+  --blockquote-border-color: rgb(var(--slate-depth-3));
+  --blockquote-background-color: rgba(var(--slate-depth-3), 0.06);
+}
+.markdown-rendered blockquote blockquote blockquote blockquote {
+  --blockquote-border-color: rgb(var(--slate-depth-4));
+  --blockquote-background-color: rgba(var(--slate-depth-4), 0.06);
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-quote-1 {
+  border-left-color: rgb(var(--slate-depth-1));
+}
+.markdown-source-view.mod-cm6 .HyperMD-quote-2 {
+  border-left-color: rgb(var(--slate-depth-2));
+}
+.markdown-source-view.mod-cm6 .HyperMD-quote-3 {
+  border-left-color: rgb(var(--slate-depth-3));
+}
+.markdown-source-view.mod-cm6 .HyperMD-quote-4 {
+  border-left-color: rgb(var(--slate-depth-4));
+}
+
+/* ---------------------------------------------------------------------------
+   17. Editor and inline detail
+   ------------------------------------------------------------------------ */
+
+body {
+  --inline-title-color: var(--sl-primary);
+  --inline-title-weight: 700;
+  --inline-title-size: 2.1rem;
+}
+
+/* Gutter: quiet numbers, primary on the active line, orange fold arrows to
+   match the collapsed-folder indicator. */
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement {
+  color: var(--text-faint);
+}
+
+.markdown-source-view.mod-cm6 .cm-lineNumbers .cm-gutterElement.cm-active {
+  color: var(--sl-primary);
+  font-weight: 600;
+}
+
+.markdown-source-view.mod-cm6 .cm-foldGutter .cm-gutterElement svg,
+.markdown-source-view.mod-cm6 .cm-fold-indicator .collapse-icon svg {
+  color: var(--sl-orange);
+}
+
+/* Markdown comments read as apparatus, not content. */
+.markdown-source-view.mod-cm6 .cm-comment {
+  color: var(--sl-gray);
+  font-style: italic;
+}
+
+/* Escapes and formatting marks stay out of the way. */
+.markdown-source-view.mod-cm6 .cm-formatting-escape {
+  color: var(--sl-gray);
+}
+
+/* Footnotes: reference and definition share the accent so the jump target is
+   obvious in both directions. */
+.markdown-rendered .footnote-ref a,
+.markdown-rendered sup[id^="fnref"] a,
+.markdown-source-view.mod-cm6 .cm-footref {
+  color: var(--sl-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.markdown-rendered .footnote-backref {
+  color: var(--sl-accent);
+}
+
+.markdown-rendered .footnotes {
+  border-top: 1px solid rgba(var(--sl-border-rgb), 0.55);
+  color: var(--text-muted);
+}
+
+/* Math sits in the teal accent; a render error goes red. */
+.markdown-rendered .math,
+.markdown-source-view.mod-cm6 .cm-math,
+.markdown-source-view.mod-cm6 .HyperMD-math {
+  color: var(--sl-teal);
+}
+
+.markdown-rendered .math-error,
+.markdown-source-view.mod-cm6 .cm-math-error {
+  color: var(--sl-red);
+}
+
+/* Block identifiers and transclusion chrome. */
+.markdown-source-view.mod-cm6 .cm-blockid {
+  color: var(--sl-purple);
+  opacity: 0.7;
+}
+
+.markdown-embed-title,
+.markdown-embed .markdown-embed-link {
+  color: var(--sl-purple);
+}
+
+/* Link types. Plain note links keep the primary blue; these carve out the
+   cases where the target is not simply another note. */
+.markdown-rendered a.internal-link[href*="#^"],
+.markdown-source-view.mod-cm6 .cm-link-alias[href*="#^"] {
+  color: var(--sl-purple);
+}
+
+.markdown-rendered a.internal-link[href*="#"]:not([href*="#^"]) {
+  color: var(--sl-cyan);
+}
+
+.markdown-rendered a.internal-link[href$=".pdf"],
+.markdown-rendered a.internal-link[href$=".png"],
+.markdown-rendered a.internal-link[href$=".jpg"],
+.markdown-rendered a.internal-link[href$=".jpeg"],
+.markdown-rendered a.internal-link[href$=".gif"],
+.markdown-rendered a.internal-link[href$=".svg"],
+.markdown-rendered a.internal-link[href$=".webp"],
+.markdown-rendered a.internal-link[href$=".mp4"],
+.markdown-rendered a.internal-link[href$=".mp3"],
+.markdown-rendered a.internal-link[href$=".canvas"] {
+  color: var(--sl-teal);
+}
+
+/* Frontmatter links and property values. */
+.metadata-link,
+.metadata-property .internal-link {
+  color: var(--sl-primary);
+}
+
+/* Editor affordances. */
+.markdown-source-view.mod-cm6 .cm-matchingBracket {
+  background: rgba(var(--sl-accent-rgb), 0.22);
+  color: var(--sl-accent);
+}
+
+.markdown-source-view.mod-cm6 .cm-nonmatchingBracket {
+  background: rgba(var(--sl-red-rgb), 0.22);
+}
+
+.cm-s-obsidian .cm-spelling-error,
+.markdown-source-view .cm-spelling-error {
+  text-decoration-color: rgba(var(--sl-red-rgb), 0.8);
+}
+
+/* ---------------------------------------------------------------------------
+   18. Chrome and panes
+
+   Tab and sidebar icons take a hue per view type, so the workspace reads by
+   color before it reads by label.
+   ------------------------------------------------------------------------ */
+
+.workspace-tab-header[data-type="markdown"] .workspace-tab-header-inner-icon {
+  color: var(--sl-primary);
+}
+.workspace-tab-header[data-type="canvas"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="excalidraw"] .workspace-tab-header-inner-icon {
+  color: var(--sl-purple);
+}
+.workspace-tab-header[data-type="pdf"] .workspace-tab-header-inner-icon {
+  color: var(--sl-red);
+}
+.workspace-tab-header[data-type="image"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="video"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="audio"] .workspace-tab-header-inner-icon {
+  color: var(--sl-green);
+}
+.workspace-tab-header[data-type="graph"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="localgraph"] .workspace-tab-header-inner-icon {
+  color: var(--sl-teal);
+}
+.workspace-tab-header[data-type="bases"] .workspace-tab-header-inner-icon {
+  color: var(--sl-orange);
+}
+.workspace-tab-header[data-type="file-explorer"] .workspace-tab-header-inner-icon {
+  color: var(--sl-orange);
+}
+.workspace-tab-header[data-type="search"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="all-properties"] .workspace-tab-header-inner-icon {
+  color: var(--sl-cyan);
+}
+.workspace-tab-header[data-type="bookmarks"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="starred"] .workspace-tab-header-inner-icon {
+  color: var(--sl-red);
+}
+.workspace-tab-header[data-type="tag"] .workspace-tab-header-inner-icon {
+  color: var(--sl-accent);
+}
+.workspace-tab-header[data-type="outline"] .workspace-tab-header-inner-icon {
+  color: var(--sl-green);
+}
+.workspace-tab-header[data-type="backlink"] .workspace-tab-header-inner-icon,
+.workspace-tab-header[data-type="outgoing-link"] .workspace-tab-header-inner-icon {
+  color: var(--sl-purple);
+}
+.workspace-tab-header[data-type="calendar"] .workspace-tab-header-inner-icon {
+  color: var(--sl-blue);
+}
+
+/* Result counts and tree flairs: a quiet pill rather than bare digits. */
+.tree-item-flair,
+.search-result-count,
+.backlink-pane .tree-item-flair {
+  color: var(--sl-primary);
+  background: rgba(var(--sl-primary-rgb), var(--sl-wash));
+  border-radius: 1em;
+  padding: 0 0.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+.search-result-file-title .tree-item-flair {
+  color: var(--sl-accent);
+  background: rgba(var(--sl-accent-rgb), var(--sl-wash));
+}
+
+/* Unlinked mentions read cooler than linked ones. */
+.backlink-pane > .tree-item:nth-of-type(2) .tree-item-flair {
+  color: var(--sl-gray);
+  background: rgba(var(--sl-gray-rgb), var(--sl-wash));
+}
+
+/* Status bar: quiet until touched. */
+.status-bar-item.mod-clickable:hover {
+  color: var(--sl-primary);
+}
+
+/* Bases table views inherit the table palette; the header rail gets the same
+   primary wash the markdown tables use. */
+.bases-tbody .bases-td,
+.bases-table-cell {
+  border-color: var(--table-border-color);
+}
+
+.bases-thead,
+.bases-table-header {
+  background: var(--table-header-background);
+  color: var(--table-header-color);
+}
+
 /* Print / export stays on the light ground regardless of app theme. */
 @media print {
   body {
