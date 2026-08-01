@@ -1,4 +1,4 @@
-# Diagrammo Slate
+# Slate
 
 An Obsidian theme built on the **Slate** palette from
 [diagrammo.app/palette](https://diagrammo.app/palette/) — a cool-gray ground, a
@@ -12,7 +12,7 @@ states, graph nodes and canvas all carry hue, and none of it fights.
 Light and dark are both first-class — the palette ships distinct values for
 each, not one set with opacity tricks.
 
-![Diagrammo Slate in light and dark](screenshot.png)
+![Slate in light and dark](screenshot.png)
 
 ## Palette
 
@@ -159,19 +159,27 @@ Measure is `42rem`, body line height `1.7`, headings tracked at `-0.018em`.
 
 ## Install
 
-### With BRAT
-
-Add `demian0311/obsidian-slate` as a beta theme in
-[BRAT](https://github.com/TfTHacker/obsidian42-brat).
+> **Installed this as "Diagrammo Slate"?** It was renamed to **Slate** in 1.1.0.
+> Obsidian keys an installed theme by its folder name, so the old install will
+> not see updates. To move over: Settings → Appearance → Themes → **Manage**,
+> install **Slate**, then remove **Diagrammo Slate**. Your Style Settings
+> toggles carry across — the settings id is unchanged.
 
 ### From the community list
 
-Not submitted yet — see [RELEASING.md](RELEASING.md).
+In Obsidian, go to Settings → Appearance → Themes → **Manage**, search for
+**Slate**, and click Install and use.
+
+### With BRAT
+
+Add `demian0311/obsidian-slate` as a beta theme in
+[BRAT](https://github.com/TfTHacker/obsidian42-brat) to track `main` ahead of
+the released version.
 
 ### Manually
 
 Copy `theme.css` and `manifest.json` into
-`<vault>/.obsidian/themes/Diagrammo Slate/`, then pick the theme under
+`<vault>/.obsidian/themes/Slate/`, then pick the theme under
 Settings → Appearance.
 
 ## Customizing
@@ -203,8 +211,8 @@ symlinking the repo *into* a vault gives you a theme that loads once and never
 hot-reloads. Put the real files in the vault and symlink back out instead:
 
 ```sh
-git clone <repo> "<vault>/.obsidian/themes/Diagrammo Slate"
-ln -s "<vault>/.obsidian/themes/Diagrammo Slate" ~/code/obsidian-slate
+git clone <repo> "<vault>/.obsidian/themes/Slate"
+ln -s "<vault>/.obsidian/themes/Slate" ~/code/obsidian-slate
 ```
 
 Now saving `theme.css` reloads the theme immediately. `Cmd+R` forces a reload

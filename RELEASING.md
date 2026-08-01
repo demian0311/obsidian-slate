@@ -57,6 +57,12 @@ string literally.
 
 ## Submitting to the community list
 
+**Already done.** Slate is in `community-css-themes.json` and installs
+from Settings → Appearance → Themes → Manage. The steps below are kept for
+reference; they do not need to be repeated. Subsequent versions ship by cutting
+a release (above) — the directory picks up the new tag automatically, no
+resubmission.
+
 **This is not a pull request.** `obsidianmd/obsidian-releases` is now a mirror —
 pull requests and issues are both disabled on it, and `community-css-themes.json`
 only receives automated `chore: Mirror community plugins and themes` commits.
@@ -75,10 +81,29 @@ Submit through the web portal instead:
 The directory reads `manifest.json` from your default branch's HEAD, so commit
 any version bump before submitting.
 
+## Renaming the theme
+
+Renamed from "Diagrammo Slate" to "Slate" in 1.1.0. What that costs, for
+reference if it is ever considered again:
+
+- Obsidian installs a theme into `<vault>/.obsidian/themes/<manifest name>/`
+  and records `cssTheme: "<name>"` in `appearance.json`. After a rename, every
+  existing install points at a folder that matches no directory entry. The
+  theme keeps working but never updates again, and there is no migration path —
+  users must install the new name and remove the old one by hand
+- The Style Settings `id` in `theme.css` (`diagrammo-slate`) keys every user's
+  saved toggles. **Do not change it.** The `name:` above it is the display
+  string and is safe to change; the id is not
+- The name must stay unique across `community-css-themes.json` (654 entries as
+  of the rename; nearest neighbor is "Slatewave")
+- Unverified: whether a manifest name change re-triggers review at
+  community.obsidian.md. The portal reads `manifest.json` from HEAD, so the
+  mirror may pick it up automatically — watch the listing after the release
+
 ## Before submitting
 
 - [x] `screenshot.png` at repo root
-- [x] Release tag matches `manifest.json` version exactly (1.0.0)
+- [x] Release tag matches `manifest.json` version exactly (1.1.0)
 - [x] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
       note — nested folders, long note lists, a populated graph
