@@ -97,6 +97,12 @@ settings:
     description: Readable measure for note content.
     type: variable-text
     default: 42rem
+  -
+    id: slate-heading-space
+    title: Space above headings
+    description: Gap before a heading. Sits outside the tint, so the colored band stays the height of the text.
+    type: variable-text
+    default: 2.75rem
 
 */
 
@@ -263,6 +269,13 @@ body {
     "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
   --file-line-width: var(--slate-line-width, 42rem);
+
+  /* Gap above a heading. Reading view spends it as the heading's own
+     margin-top, live preview as the previous line's padding-bottom — either
+     way it lands outside the tinted box. The fallback is Obsidian's own
+     formula, so reading view keeps the rhythm it already had and live preview
+     comes up to meet it. */
+  --heading-spacing: var(--slate-heading-space, calc(var(--p-spacing) * 2.5));
   --line-height-normal: 1.7;
   --line-height-tight: 1.35;
   --p-spacing: 1.1rem;
@@ -526,6 +539,29 @@ body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-
   padding-top: 0.12em;
   padding-bottom: 0.12em;
   padding-left: 0.6em;
+}
+
+/* Space above a heading, without inflating the band.
+
+   Core spends that gap as `padding-top: var(--p-spacing)` on the heading line
+   itself, which is fine while the line is transparent and wrong the moment a
+   background paints it — the tint grows to swallow the whole gap. The rule
+   above replaces that padding with a tight 0.12em, so the gap has to come from
+   somewhere outside the box.
+
+   Hang it off the *previous* line's bottom padding: identical vertical rhythm,
+   but it belongs to a line that has no tint of its own. Padding rather than a
+   margin on the heading, because CodeMirror measures line heights with
+   offsetHeight — margins are excluded from it and the scrollbar drifts on long
+   notes.
+
+   The `:not(.HyperMD-header)` guard keeps the padding from landing inside a
+   preceding heading's own tint when two headings sit back to back, and mirrors
+   what reading view already does (core only applies --heading-spacing after a
+   p, pre, table, ul or ol). */
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6
+  .cm-line:not(.HyperMD-header):has(+ .cm-line.HyperMD-header) {
+  padding-bottom: var(--heading-spacing);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {

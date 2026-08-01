@@ -200,6 +200,8 @@ block. Everything colorful is **on by default** and the toggles turn things
 - Plain bold & italic — uncolored emphasis
 - Sans-serif body — interface sans for note text
 - Line width — the readable measure, default `42rem`
+- Space above headings — the gap before a heading, default `2.75rem`. It sits
+  outside the tint, so raising it never grows the colored band
 
 ## Development
 

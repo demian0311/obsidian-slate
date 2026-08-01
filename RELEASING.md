@@ -103,7 +103,7 @@ reference if it is ever considered again:
 ## Before submitting
 
 - [x] `screenshot.png` at repo root
-- [x] Release tag matches `manifest.json` version exactly (1.1.0)
+- [x] Release tag matches `manifest.json` version exactly (1.1.1)
 - [x] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
       note — nested folders, long note lists, a populated graph
