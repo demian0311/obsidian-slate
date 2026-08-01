@@ -1,5 +1,5 @@
 /* ============================================================================
-   Slate — an Obsidian theme
+   Diagrammo Slate — an Obsidian theme
    Port of the "Slate" palette from https://diagrammo.app/palette/
 
    A cool-gray slate ground with a confident corporate blue, a muted teal
@@ -10,7 +10,7 @@
 
 /* @settings
 
-name: Slate
+name: Diagrammo Slate
 id: diagrammo-slate
 settings:
   -
@@ -534,34 +534,43 @@ body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-
 
 /* Obsidian gives live-preview heading lines 0.25em of bottom padding and none
    at the top, which is invisible until a background makes the box visible.
-   Balanced so the text sits centered in the tint. */
+   Balanced so the text sits centered in the tint.
+
+   The space *above* a heading is a transparent top border, not padding.
+
+   Core spends that gap as `padding-top: var(--p-spacing)` on the heading line,
+   which is fine while the line is transparent and wrong the moment a background
+   paints it — the tint grows to swallow the whole gap. A border keeps the gap
+   inside the line box (so CodeMirror's offsetHeight measurement stays honest
+   and the scrollbar does not drift, which a margin would break) while
+   `background-clip: padding-box` stops the tint from painting under it.
+
+   The top corners are given an elliptical radius: the padding box a corner
+   inherits is the border box radius minus that side's border width, per axis.
+   Vertical is eaten by the border, horizontal is not, so ask for
+   `--radius-m` across and `--radius-m + spacing` down, and the tint's own
+   corners land back on --radius-m. A single radius here would square them off. */
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header {
   padding-top: 0.12em;
   padding-bottom: 0.12em;
   padding-left: 0.6em;
+  border-top: var(--heading-spacing) solid transparent;
+  background-clip: padding-box;
+  border-top-left-radius: var(--radius-m) calc(var(--radius-m) + var(--heading-spacing));
+  border-top-right-radius: var(--radius-m) calc(var(--radius-m) + var(--heading-spacing));
 }
 
-/* Space above a heading, without inflating the band.
-
-   Core spends that gap as `padding-top: var(--p-spacing)` on the heading line
-   itself, which is fine while the line is transparent and wrong the moment a
-   background paints it — the tint grows to swallow the whole gap. The rule
-   above replaces that padding with a tight 0.12em, so the gap has to come from
-   somewhere outside the box.
-
-   Hang it off the *previous* line's bottom padding: identical vertical rhythm,
-   but it belongs to a line that has no tint of its own. Padding rather than a
-   margin on the heading, because CodeMirror measures line heights with
-   offsetHeight — margins are excluded from it and the scrollbar drifts on long
-   notes.
-
-   The `:not(.HyperMD-header)` guard keeps the padding from landing inside a
-   preceding heading's own tint when two headings sit back to back, and mirrors
-   what reading view already does (core only applies --heading-spacing after a
-   p, pre, table, ul or ol). */
-body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6
-  .cm-line:not(.HyperMD-header):has(+ .cm-line.HyperMD-header) {
-  padding-bottom: var(--heading-spacing);
+/* Two headings back to back stay tight, and a note that opens on a heading
+   starts at the top of the editor rather than below a gap. Both mirror reading
+   view, where core only applies --heading-spacing after a p, pre, table, ul or
+   ol. Plain sibling combinators rather than a relational selector, which
+   Obsidian's CSS lint flags — matching every line against its next sibling is
+   exactly the invalidation pattern that costs in a long note. */
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .HyperMD-header + .HyperMD-header,
+body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-source-view.mod-cm6 .cm-line.HyperMD-header:first-child {
+  border-top-width: 0;
+  border-top-left-radius: var(--radius-m);
+  border-top-right-radius: var(--radius-m);
 }
 
 body:not(.slate-plain-headings):not(.slate-plain-heading-tint) .markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
@@ -621,10 +630,13 @@ mark,
   padding: 0.05em 0.15em;
 }
 
+/* The strike takes the same faint ink as the text it crosses out. An earlier
+   version tinted the line red with the decoration-color longhand; Obsidian's
+   CSS lint flags that family as only partially supported on its baseline, and a
+   red hairline was not worth carrying a warning for. */
 del,
 s {
   color: var(--text-faint);
-  text-decoration-color: rgba(var(--sl-red-rgb), 0.8);
 }
 
 /* Spectrum rule. Scoped to note content so plugin panes in the sidebar keep

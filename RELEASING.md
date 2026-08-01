@@ -57,8 +57,9 @@ string literally.
 
 ## Submitting to the community list
 
-**Already done.** Slate is in `community-css-themes.json` and installs
-from Settings → Appearance → Themes → Manage. The steps below are kept for
+**Already done.** The theme is in `community-css-themes.json` as **Diagrammo
+Slate** and installs from Settings → Appearance → Themes → Manage. The name in
+that entry is the name, permanently — see *Renaming* below. The steps below are kept for
 reference; they do not need to be repeated. Subsequent versions ship by cutting
 a release (above) — the directory picks up the new tag automatically, no
 resubmission.
@@ -83,27 +84,48 @@ any version bump before submitting.
 
 ## Renaming the theme
 
-Renamed from "Diagrammo Slate" to "Slate" in 1.1.0. What that costs, for
-reference if it is ever considered again:
+**Do not. A listed theme cannot be renamed.** Settled by trying it: 1.1.0
+shortened the manifest name to "Slate", and on 2026-08-01 the portal entry
+carried a red banner — *"Your manifest.json was updated to the name 'Slate',
+however theme names cannot be changed. Your theme has been hidden from the
+directory until the manifest is reverted to its original name"* — alongside a
+failed review, `The theme name in manifest.json (Slate) does not match the
+expected name (Diagrammo Slate)`. The listing was pulled for the two days it
+took to notice. 1.1.2 reverts the name.
 
-- Obsidian installs a theme into `<vault>/.obsidian/themes/<manifest name>/`
-  and records `cssTheme: "<name>"` in `appearance.json`. After a rename, every
-  existing install points at a folder that matches no directory entry. The
-  theme keeps working but never updates again, and there is no migration path —
-  users must install the new name and remove the old one by hand
+The name is fixed at first submission. What is still true, for reference:
+
 - The Style Settings `id` in `theme.css` (`diagrammo-slate`) keys every user's
-  saved toggles. **Do not change it.** The `name:` above it is the display
-  string and is safe to change; the id is not
-- The name must stay unique across `community-css-themes.json` (654 entries as
-  of the rename; nearest neighbor is "Slatewave")
-- Unverified: whether a manifest name change re-triggers review at
-  community.obsidian.md. The portal reads `manifest.json` from HEAD, so the
-  mirror may pick it up automatically — watch the listing after the release
+  saved toggles. **Do not change it either.** It is not the manifest name and
+  the portal does not check it, but changing it resets everyone's configuration
+- Obsidian installs a theme into `<vault>/.obsidian/themes/<manifest name>/`
+  and records `cssTheme: "<name>"` in `appearance.json`, so even without the
+  portal rule a rename strands every existing install with no migration path
+- A genuinely different name means a new repo and a new submission, carrying no
+  users, no stars and no review history across
+
+## What the automated review checks
+
+Every release triggers a review at
+[community.obsidian.md](https://community.obsidian.md) → Themes → the entry.
+Errors hide the theme; warnings do not. As of 1.1.2 the review is clean except
+for one accepted warning:
+
+- **`!important` (~50, all in the mermaid block)** — accepted, unavoidable.
+  Mermaid scopes its generated stylesheet with the diagram's `#mermaid-<id>`,
+  and no class-only selector can outrank an id no matter how specific. The
+  alternative the warning suggests — more specificity — cannot work here
+- **`:has`** — removed in 1.1.2. The gap above a live-preview heading is a
+  transparent top border on the heading line with `background-clip: padding-box`
+  instead of bottom padding on the preceding line
+- **`text-decoration`** — removed in 1.1.2. The red-tinted strikethrough is now
+  plain faint ink
 
 ## Before submitting
 
 - [x] `screenshot.png` at repo root
-- [x] Release tag matches `manifest.json` version exactly (1.1.1)
+- [x] Release tag matches `manifest.json` version exactly (1.1.2)
+- [x] `manifest.json` name is still `Diagrammo Slate` — it can never change
 - [x] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
       note — nested folders, long note lists, a populated graph

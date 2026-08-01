@@ -1,4 +1,4 @@
-# Slate
+# Diagrammo Slate
 
 An Obsidian theme built on the **Slate** palette from
 [diagrammo.app/palette](https://diagrammo.app/palette/) — a cool-gray ground, a
@@ -12,7 +12,7 @@ states, graph nodes and canvas all carry hue, and none of it fights.
 Light and dark are both first-class — the palette ships distinct values for
 each, not one set with opacity tricks.
 
-![Slate in light and dark](screenshot.png)
+![Diagrammo Slate in light and dark](screenshot.png)
 
 ## Palette
 
@@ -159,16 +159,15 @@ Measure is `42rem`, body line height `1.7`, headings tracked at `-0.018em`.
 
 ## Install
 
-> **Installed this as "Diagrammo Slate"?** It was renamed to **Slate** in 1.1.0.
-> Obsidian keys an installed theme by its folder name, so the old install will
-> not see updates. To move over: Settings → Appearance → Themes → **Manage**,
-> install **Slate**, then remove **Diagrammo Slate**. Your Style Settings
-> toggles carry across — the settings id is unchanged.
+> **Saw this as "Slate" briefly?** 1.1.0 and 1.1.1 shortened the name; the
+> community directory does not allow a theme to be renamed, so 1.1.2 puts it
+> back to **Diagrammo Slate**. Nothing to do — installs and Style Settings
+> toggles were never keyed to the short name.
 
 ### From the community list
 
 In Obsidian, go to Settings → Appearance → Themes → **Manage**, search for
-**Slate**, and click Install and use.
+**Diagrammo Slate**, and click Install and use.
 
 ### With BRAT
 
@@ -179,7 +178,7 @@ the released version.
 ### Manually
 
 Copy `theme.css` and `manifest.json` into
-`<vault>/.obsidian/themes/Slate/`, then pick the theme under
+`<vault>/.obsidian/themes/Diagrammo Slate/`, then pick the theme under
 Settings → Appearance.
 
 ## Customizing
@@ -213,8 +212,8 @@ symlinking the repo *into* a vault gives you a theme that loads once and never
 hot-reloads. Put the real files in the vault and symlink back out instead:
 
 ```sh
-git clone <repo> "<vault>/.obsidian/themes/Slate"
-ln -s "<vault>/.obsidian/themes/Slate" ~/code/obsidian-slate
+git clone <repo> "<vault>/.obsidian/themes/Diagrammo Slate"
+ln -s "<vault>/.obsidian/themes/Diagrammo Slate" ~/code/obsidian-slate
 ```
 
 Now saving `theme.css` reloads the theme immediately. `Cmd+R` forces a reload
