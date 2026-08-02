@@ -118,10 +118,20 @@ Every release triggers a review at
 Errors hide the theme; warnings do not. As of 1.1.3 the review is clean except
 for one accepted warning:
 
-- **`!important` (~50, all in the mermaid block)** — accepted, unavoidable.
-  Mermaid scopes its generated stylesheet with the diagram's `#mermaid-<id>`,
-  and no class-only selector can outrank an id no matter how specific. The
-  alternative the warning suggests — more specificity — cannot work here
+- **`!important` (all in the mermaid block — `grep -c '!important' theme.css`)**
+  — accepted, unavoidable. Mermaid scopes its generated stylesheet with the
+  diagram's `#mermaid-<id>`, and no class-only selector can outrank an id no
+  matter how specific. The alternative the warning suggests — more specificity
+  — cannot work here.
+
+  The warning's *other* suggestion, CSS variables, reaches exactly one
+  property. Obsidian's mermaid `initialize` passes a single themeVariable
+  through, `fontFamily: "var(--font-mermaid)"`, and defines
+  `--font-mermaid: var(--font-text)` — so a theme sets the diagram font by
+  overriding that variable, not by fighting the id selector. Done in section 2.
+  There is no colour equivalent: those two font variables are the only
+  `--mermaid-*` hooks in the app bundle, verified 2026-08-02 against Obsidian's
+  `obsidian.asar`
 - **`:has`** — removed in 1.1.2. The gap above a live-preview heading is a
   transparent top border on the heading line with `background-clip: padding-box`
   instead of bottom padding on the preceding line
