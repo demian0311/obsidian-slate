@@ -93,6 +93,13 @@ failed review, `The theme name in manifest.json (Slate) does not match the
 expected name (Diagrammo Slate)`. The listing was pulled for the two days it
 took to notice. 1.1.2 reverts the name.
 
+The portal does not re-check on its own. A day after 1.1.2 shipped the entry
+still showed the failed 1.1.1 review and both red banners, with the corrected
+manifest sitting on `main` and in the 1.1.2 release asset the whole time. Only a
+new release re-triggers the review — 1.1.3 is that release and carries no other
+change. Expect the same lag after any fix to a failed review: ship a version
+bump rather than waiting.
+
 The name is fixed at first submission. What is still true, for reference:
 
 - The Style Settings `id` in `theme.css` (`diagrammo-slate`) keys every user's
@@ -108,7 +115,7 @@ The name is fixed at first submission. What is still true, for reference:
 
 Every release triggers a review at
 [community.obsidian.md](https://community.obsidian.md) → Themes → the entry.
-Errors hide the theme; warnings do not. As of 1.1.2 the review is clean except
+Errors hide the theme; warnings do not. As of 1.1.3 the review is clean except
 for one accepted warning:
 
 - **`!important` (~50, all in the mermaid block)** — accepted, unavoidable.
@@ -124,7 +131,7 @@ for one accepted warning:
 ## Before submitting
 
 - [x] `screenshot.png` at repo root
-- [x] Release tag matches `manifest.json` version exactly (1.1.2)
+- [x] Release tag matches `manifest.json` version exactly (1.1.3)
 - [x] `manifest.json` name is still `Diagrammo Slate` — it can never change
 - [x] `theme.css` and `manifest.json` attached to the release
 - [ ] Both light and dark checked against a real vault, not just the preview
