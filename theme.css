@@ -268,6 +268,13 @@ body {
   --font-monospace-theme: "JetBrains Mono", "SF Mono", "Berkeley Mono",
     "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
+  /* Obsidian passes `var(--font-mermaid)` straight into mermaid's
+     themeVariables at render time — it is the one mermaid property with a
+     documented hook, and it defaults to var(--font-text). Setting it here is
+     why section 21 needs no font-family override: mermaid emits the interface
+     font itself instead of the theme fighting an id-scoped rule. */
+  --font-mermaid: var(--font-interface-theme);
+
   --file-line-width: var(--slate-line-width, 42rem);
 
   /* Gap above a heading. Reading view spends it as the heading's own
@@ -1832,24 +1839,17 @@ body {
    diagram's id — that is an id selector, so nothing here lands without
    !important. This is the one place in the theme that needs it.
 
+   The lint's other suggestion, CSS variables, only reaches one property:
+   Obsidian's mermaid config passes exactly one themeVariable through,
+   `fontFamily: var(--font-mermaid)`. That one is set in section 2 and needs no
+   override. Colours have no equivalent hook, so the fills and strokes below
+   stay as they are.
+
    Verified against the section-N pattern four other themes in the wild rely
    on. The flowchart, sequence and class selectors are mermaid's documented
    public class names; they are stable across mermaid 10 and 11 but are the
    part most likely to need revisiting if mermaid restructures its output.
    ------------------------------------------------------------------------ */
-
-/* Mermaid inherits the body font into the diagram, so a serif reading face
-   ends up in flowchart labels. Diagrams are interface, not prose. Mermaid sets
-   font-family from its own theme variables, hence the override. */
-.mermaid,
-.mermaid text,
-.mermaid span,
-.mermaid p,
-.mermaid div,
-.block-language-mermaid text,
-svg[id^="mermaid-"] text {
-  font-family: var(--font-interface-theme) !important;
-}
 
 /* Flowchart and graph nodes. */
 .mermaid .node rect,
